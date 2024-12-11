@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "481628165739",
+    "project_id": "khedma-teck",
+    "storage_bucket": "khedma-teck.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481628165739:android:6773bca61e66b888a9032e",
+        "android_client_info": {
+          "package_name": "com.example.khedma_tech"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj6iW7nWZScU9GiN6rrnV1jBqPsC0-7_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
