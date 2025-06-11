@@ -34,8 +34,19 @@ A modern Flutter app built to help users find and manage technical services effi
 
 ## 📸 Screenshots
 
-<p float="left">
-  <img src="assets/screenshots/Screenshot_1749661387-left.png" width="250"/>
-  <img src="assets/screenshots/Screenshot_1749662828-left.png
-" width="250"/>
-</p>
+
+<div align="center">
+  <img src="assets/screenshots/Screenshot_1749661387-left.png" width="400"/>
+  <img src="assets/screenshots/Screenshot_1749662828-left.png" width="400"/>
+</div>
+
+<div align="center">
+  <img src="assets/screenshots/Screenshot_1749663046-portrait.png" width="200"/>
+  <img src="assets/screenshots/Screenshot_1749664164-portrait.png" width="200"/>
+  <img src="assets/screenshots/Screenshot_1749663115-portrait.png" width="200"/>
+  <img src="assets/screenshots/Screenshot_1749663126-portrait.png" width="200"/>
+  <img src="assets/screenshots/Screenshot_1749663020-portrait.png" width="200"/>
+  <img src="assets/screenshots/Screenshot_1749663343-portrait.png" width="200"/>
+  <img src="assets/screenshots/Screenshot_1749663478-portrait.png" width="200"/>
+  <img src="assets/screenshots/Screenshot_1749664316-portrait.png" width="200"/>
+</div>
