@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/chat/chat_list_user.dart';
-import 'package:khedma_tech/views/chat/widgets/chat_list.dart';
+import 'chat_list_user.dart';
+import 'widgets/chat_list.dart';
 
 class ChatListView extends StatelessWidget {
   ChatListView({super.key});
@@ -32,7 +32,7 @@ class ChatListView extends StatelessWidget {
           future: setType(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }  if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             }
@@ -40,13 +40,13 @@ class ChatListView extends StatelessWidget {
             print(snapshot.data);
             if(snapshot.hasData==false  )
               {
-                return Text("NO DATA");
+                return const Text("NO DATA");
 
               }
 
 
-            print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<${type}");
-            return  type=="users"?  ChatListUser():  ChatList();
+            print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$type");
+            return  type=="users"?  const ChatListUser():  const ChatList();
 
 
 
@@ -54,6 +54,5 @@ class ChatListView extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

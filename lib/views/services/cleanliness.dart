@@ -33,7 +33,7 @@ class cleanliness extends StatelessWidget {
         .snapshots(),
     builder: (context, snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {
-    return Center(child: CircularProgressIndicator());
+    return const Center(child: CircularProgressIndicator());
     }
 
     if (snapshot.hasError) {
@@ -41,11 +41,11 @@ class cleanliness extends StatelessWidget {
     }
 
     if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-    return Center(child: Text('No cleaner found'));
+    return const Center(child: Text('No cleaner found'));
     }
     if(snapshot.data!.size==1 && snapshot.data!.docs.first.id==FirebaseAuth.instance.currentUser!.uid)
     {
-      return Text("No cleaner found");
+      return const Text("No cleaner found");
     }
     return ListView.builder(
       shrinkWrap: true,
@@ -53,8 +53,8 @@ class cleanliness extends StatelessWidget {
       itemCount: snapshot.data!.docs.length,
       itemBuilder: (BuildContext context, int index) {
         return  Padding(
-          padding: EdgeInsets.only(bottom: 16),
-          child:snapshot.data!.docs[index].id!=FirebaseAuth.instance.currentUser!.uid? HandMan( snapshot.data!.docs[index].id):Text(""),
+          padding: const EdgeInsets.only(bottom: 16),
+          child:snapshot.data!.docs[index].id!=FirebaseAuth.instance.currentUser!.uid? HandMan( snapshot.data!.docs[index].id):const Text(""),
         );
       },
     );},

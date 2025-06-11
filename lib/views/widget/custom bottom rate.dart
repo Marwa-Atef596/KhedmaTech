@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../core/constent.dart';
 import '../search page.dart';
@@ -24,7 +23,7 @@ class _custombottomrateState extends State<custombottomrate> {
 
   _custombottomrateState(this. RatingNames)
   {
-    print(this.RatingNames);
+    print(RatingNames);
     print("RATING RATING");
   }
   final List RatingNames;
@@ -37,7 +36,7 @@ class _custombottomrateState extends State<custombottomrate> {
         reverse: true,
         scrollDirection: Axis.horizontal,
         // physics: NeverScrollableScrollPhysics(),
-        itemCount: this.RatingNames.length,
+        itemCount: RatingNames.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.only(right: 10),
@@ -65,7 +64,7 @@ class _custombottomrateState extends State<custombottomrate> {
                         color: Colors.amber,
                       ),
                       Text(
-                        "${this.RatingNames[index]}",
+                        "${RatingNames[index]}",
                         style: txtstyle1,
                       ),
                     ],

@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:khedma_tech/views/profile/profile.dart';
-import 'package:khedma_tech/views/widget/custom_bottom_navigate.dart';
+import 'profile/profile.dart';
+import 'widget/custom_bottom_navigate.dart';
 
 import 'booking/NObooking.dart';
 import 'chat/chat_list_screen.dart';
@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? uid;
-  _HomePageState(String? this.uid);
+  _HomePageState(this.uid);
  static int _currentIndex = 4;
   @override
   void initState() {
@@ -32,11 +32,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _screens = [
+    final List<Widget> screens = [
       Profile("users"),
-      NoBooking(),
+      const NoBooking(),
       ChatListView(),
-      Privecy(),
+      const Privecy(),
       Home(),
     ];
     return WillPopScope(
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
             });
           },
         ),
-        body: _screens[_currentIndex],
+        body: screens[_currentIndex],
       ),
     );
   }

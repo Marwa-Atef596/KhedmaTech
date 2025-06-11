@@ -2,13 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/views/home.dart';
-import 'package:khedma_tech/views/logins/login.dart';
+import '../../logins/login.dart';
 
 import '../../../core/constent.dart';
 import '../../Rate & Review/widget/customdialograte.dart';
 import '../../logins/widget/custom_btn_log.dart';
-import '';
 
 // ignore: must_be_immutable
 class BotomBokking extends StatelessWidget {
@@ -33,7 +31,7 @@ class BotomBokking extends StatelessWidget {
         Navigator.pushReplacement(
           c,
           MaterialPageRoute(
-            builder: (context) => Login(),
+            builder: (context) => const Login(),
           ),
         );
       } on FirebaseAuthException catch (e) {
@@ -63,7 +61,7 @@ class BotomBokking extends StatelessWidget {
             Navigator.pushReplacement(
               c,
               MaterialPageRoute(
-                builder: (context) => Login(),
+                builder: (context) => const Login(),
               ),
             );
           } else {
@@ -84,7 +82,7 @@ class BotomBokking extends StatelessWidget {
                       children: [
                         TextFormField(),
                         InkWell(
-                          child: Text("Delete"),
+                          child: const Text("Delete"),
                           onTap: () {},
                         )
                       ],
@@ -181,7 +179,7 @@ class BotomBokking extends StatelessWidget {
                     title: txt3,
                     onPressed: () async {
                       await FirebaseAuth.instance.signOut();
-                      Get.off(Login());
+                      Get.off(const Login());
                     },
                   ),
                 ),

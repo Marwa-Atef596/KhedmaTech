@@ -1,9 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/splash_view.dart';
-import 'package:khedma_tech/views/home_view.dart';
-import 'core/app_router.dart';
+import 'splash_view.dart';
+import 'views/home_view.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -25,11 +24,11 @@ class KhedmaTech extends StatelessWidget {
       getPages: [
         GetPage(
           name: '/',
-          page: () => SplashView(),
+          page: () => const SplashView(),
         ),
         GetPage(
           name: '/homeview',
-          page: () => HomeView(),
+          page: () => const HomeView(),
         )
       ],
 

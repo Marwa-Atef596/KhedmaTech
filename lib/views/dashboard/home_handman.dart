@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:khedma_tech/views/contactus/privecy.dart';
-import 'package:khedma_tech/views/widget/custom_bottom_navigate.dart';
-import 'package:khedma_tech/views/dashboard/widget/custom_homeHandMan.dart';
+import '../widget/custom_bottom_navigate.dart';
+import 'widget/custom_homeHandMan.dart';
 
-import '../booking/NObooking.dart';
 import '../chat/chat_list_screen.dart';
 import '../home.dart';
 import '../profile/profile.dart';
@@ -37,7 +35,7 @@ class _HomePageHandManState extends State<HomePageHandMan> {
      ChatListView(),
 
 
-     HomeHandMan(),
+     const HomeHandMan(),
 
     Home()
 
@@ -51,7 +49,7 @@ class _HomePageHandManState extends State<HomePageHandMan> {
 
   ];
 String? uid;
-  _HomePageHandManState(String? this.uid);
+  _HomePageHandManState(this.uid);
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

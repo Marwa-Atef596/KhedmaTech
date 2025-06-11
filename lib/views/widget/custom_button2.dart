@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/constent.dart';
+import '../../core/constent.dart';
 
 // ignore: must_be_immutable
 class CustomButton2 extends StatelessWidget {

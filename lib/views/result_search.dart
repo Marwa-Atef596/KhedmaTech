@@ -1,16 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/views/Rate%20&%20Review/Rate%20&%20Review.dart';
+import 'Rate%20&%20Review/Rate%20&%20Review.dart';
 
 import '../../core/constent.dart';
 
 class result_search extends StatelessWidget {
   String? data;
   result_search(
-      String? this.data);
+      this.data, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,7 @@ class result_search extends StatelessWidget {
                 onPressed: () async {
                   FirebaseFirestore.instance.collection("reserves").doc().set({
                     "owner":FirebaseAuth.instance.currentUser!.uid,
-                    "receiver":this.data,
+                    "receiver":data,
                     "type":"forward"
 
                   });
@@ -46,7 +45,7 @@ class result_search extends StatelessWidget {
                 )),IconButton(onPressed: (){
               FirebaseFirestore.instance.collection("discussions").doc().set({
                 "owner1":FirebaseAuth.instance.currentUser!.uid,
-                "owner2":this.data,
+                "owner2":data,
                 "messages":[]
 
               });
@@ -60,11 +59,11 @@ class result_search extends StatelessWidget {
 
             StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(stream: FirebaseFirestore.instance.collection("handman").doc(data).snapshots(), builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator(),);
+                return const Center(child: CircularProgressIndicator(),);
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else if (!snapshot.hasData || !snapshot.data!.exists) {
-                return Text('Document does not exist');
+                return const Text('Document does not exist');
               }
               else
               {
@@ -77,7 +76,7 @@ class result_search extends StatelessWidget {
                     ),
                     Text("${snapshot.data!.data()!["name"]}"),
                     Text("ج م ${snapshot.data!.data()!["price"]} للمعاينة "),
-                    customtxtrate()
+                    const customtxtrate()
                   ],
                 );
               }

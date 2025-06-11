@@ -1,24 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:khedma_tech/views/dashboard/alldash.dart';
-import 'package:khedma_tech/views/dashboard/comleteDash.dart';
-import 'package:khedma_tech/views/dashboard/farwarddash.dart';
-import 'package:khedma_tech/views/dashboard/rejectdash.dart';
-import 'package:khedma_tech/views/dashboard/waitdash.dart';
-import 'package:khedma_tech/views/dashboard/widget/allrecommend.dart';
-import 'package:khedma_tech/views/dashboard/widget/customcontroller.dart';
-import 'package:khedma_tech/views/notification/noNotify.dart';
-import 'package:khedma_tech/views/profile/profile.dart';
-import 'package:khedma_tech/views/widget/custom_handman.dart';
+import '../alldash.dart';
+import '../comleteDash.dart';
+import '../farwarddash.dart';
+import '../rejectdash.dart';
+import 'allrecommend.dart';
+import 'customcontroller.dart';
+import '../../notification/noNotify.dart';
+import '../../profile/profile.dart';
 
 import '../../../core/assets.dart';
 import '../../../core/constent.dart';
 import '../../widget/custom_address.dart';
 import '../../widget/custom_notify.dart';
-import 'Customcustomsammry.dart';
 
 class HomeHandMan extends StatelessWidget {
   const HomeHandMan({super.key});
@@ -61,7 +57,7 @@ class HomeHandMan extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => NoNotify(),
+                            builder: (context) => const NoNotify(),
                           ),
                         );
                       },
@@ -85,18 +81,18 @@ class HomeHandMan extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return CircularProgressIndicator();
+                          return const CircularProgressIndicator();
                         }
                         if (snapshot.hasError) {
-                          return Text("has error");
+                          return const Text("has error");
                         }
                         if (!snapshot.hasData || !snapshot.data!.exists) {
                           print(FirebaseAuth.instance.currentUser!.uid);
-                          return Text("No user");
+                          return const Text("No user");
                         }
                         return Text(
                           snapshot.data!.get("name"),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.lightBlue,
                               fontSize: 20),
@@ -200,7 +196,7 @@ class HomeHandMan extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => AllRecommend(),
+                                    builder: (context) => const AllRecommend(),
                                   ),
                                 );
                               },
@@ -219,30 +215,31 @@ class HomeHandMan extends StatelessWidget {
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(),
                             );
                           }
                           if (snapshot.hasError) {
-                            return Text("Error");
+                            return const Text("Error");
                           }
                           if (snapshot.hasData == false ||
                               snapshot.data!.exists == false) {
-                            return Text("No user");
+                            return const Text("No user");
                           }
 
                           List ranks = snapshot.data!["ranks"];
                           print("<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>");
 
-                          if (ranks.isEmpty)
-                            return Container(
+                          if (ranks.isEmpty) {
+                            return SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 20 / 100,
-                              child: Center(
+                              child: const Center(
                                 child: Text("لا يوجد تقييمات"),
                               ),
                             );
-                          return Container(
+                          }
+                          return SizedBox(
                             height:
                                 MediaQuery.of(context).size.height * 60 / 100,
                             child: ListView.builder(
@@ -274,28 +271,28 @@ class HomeHandMan extends StatelessWidget {
                                             builder: (context, snapshot) {
                                               if (snapshot.connectionState ==
                                                   ConnectionState.waiting) {
-                                                return Center(
+                                                return const Center(
                                                   child:
                                                       CircularProgressIndicator(),
                                                 );
                                               }
                                               if (snapshot.hasError) {
-                                                return Text("Error");
+                                                return const Text("Error");
                                               }
                                               if (snapshot.hasData == false ||
                                                   snapshot.data!.exists ==
                                                       false) {
-                                                return Text("No user");
+                                                return const Text("No user");
                                               }
 
-                                              return Container(child: Column(
+                                              return SizedBox(width: MediaQuery.of(context).size.width*40/100,child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
 
                                                 children: [
-                                                  Text(snapshot.data!["name"],style: TextStyle(fontWeight: FontWeight.bold),),
+                                                  Text(snapshot.data!["name"],style: const TextStyle(fontWeight: FontWeight.bold),),
                                                   Text(ranks[index]["comment"],overflow: TextOverflow.ellipsis,maxLines: 2,)
                                                 ],
-                                              ),width: MediaQuery.of(context).size.width*40/100,);
+                                              ),);
                                             },
                                           ),
                                           const Spacer(),
@@ -320,7 +317,7 @@ class HomeHandMan extends StatelessWidget {
                                                     //  widget.RatingNames[index],
                                                     style: txtstyle1,
                                                   ),
-                                                  Icon(
+                                                  const Icon(
                                                     Icons.star,
                                                     color: Colors.amber,
                                                   ),

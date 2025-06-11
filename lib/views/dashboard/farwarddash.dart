@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/booking/farward2.dart';
+import '../../core/constent.dart';
 
 import '../widget/handman_Booking_forward.dart';
 
@@ -39,7 +38,7 @@ class FarwardDash extends StatelessWidget {
           backgroundColor: Colors.white.withOpacity(0.5),
           elevation: 0,
         ),
-        body:  Padding(
+        body:  const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: handman_Booking_forward(),
         ));

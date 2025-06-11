@@ -40,18 +40,18 @@ class CustomController extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   StreamBuilder<QuerySnapshot>(
-                    stream: !this.txt!.contains("كل")
+                    stream: !txt!.contains("كل")
                         ? FirebaseFirestore.instance
                             .collection("reserves")
                             .where("receiver",
                                 isEqualTo:
                                     FirebaseAuth.instance.currentUser!.uid)
                             .where("type",
-                                isEqualTo: this.txt!.contains("المكتملة")
+                                isEqualTo: txt!.contains("المكتملة")
                                     ? "completed"
-                                    : this.txt!.contains("القادمة")
+                                    : txt!.contains("القادمة")
                                         ? "forward"
-                                        : this.txt!.contains("الملغية")
+                                        : txt!.contains("الملغية")
                                             ? "canceled"
                                             : "")
                             .snapshots()
@@ -64,19 +64,19 @@ class CustomController extends StatelessWidget {
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasError) {
-                        return Center(
+                        return const Center(
                           child: Text('Something went wrong'),
                         );
                       }
 
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
 
                       if (!snapshot.hasData || snapshot.data!.size == 0) {
-                        return Center(
+                        return const Center(
                           child: Text('0'),
                         );
                       }

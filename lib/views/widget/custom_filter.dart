@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/logins/widget/custom_btn_log.dart';
+import '../../core/constent.dart';
+import '../logins/widget/custom_btn_log.dart';
 
 import 'custom bottom rate.dart';
 import 'customListBottom.dart';
@@ -13,15 +13,15 @@ class CustomFilter extends StatelessWidget {
     super.key,
   }){
     this.filter=filter;
-    this.ServiceNames=list;
+    ServiceNames=list;
     this.RatingNames=RatingNames;
 
-    this.ranges=list3;
+    ranges=list3;
   }
   List ServiceNames = [];
   List RatingNames = [
   ];
-  RangeValues? ranges = null;
+  RangeValues? ranges;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -81,7 +81,7 @@ class CustomFilter extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                         RangeSliderExample(this.ranges! ),
+                         RangeSliderExample(ranges! ),
                         const SizedBox(
                           height: 5,
                         ),
@@ -109,7 +109,7 @@ class CustomFilter extends StatelessWidget {
                         CustomBtnLog(
                           title: 'فلتر',
                           onPressed: () {
-                            print(this.ServiceNames);
+                            print(ServiceNames);
                           },
                           backgroundColor: kcolor1,
                         )

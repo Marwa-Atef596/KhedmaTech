@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/booking/widget/button1.dart';
+import 'widget/button1.dart';
 
 import '../../core/constent.dart';
 import 'widget/CustomRowBokking.dart';

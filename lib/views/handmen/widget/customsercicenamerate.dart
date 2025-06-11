@@ -13,7 +13,7 @@ class customsercicenamerate extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Row(
       children: [
-        Text(
+        const Text(
           'عمر محمد',
           style: txtstyle1,
         ),

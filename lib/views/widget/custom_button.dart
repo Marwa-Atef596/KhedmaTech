@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/constent.dart';
+
+import '../../core/constent.dart';
 
 // ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
@@ -27,7 +28,8 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           title!,
-          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+          style: const TextStyle(
+              fontWeight: FontWeight.w700, fontSize: 16, color: Colors.white),
         ),
       ),
     );

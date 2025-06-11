@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/constent.dart';
+import '../../core/constent.dart';
 import '../booking/widget/custombotombokking.dart';
 import 'widget/CustomListTile.dart';
 import 'widget/customaddprofile.dart';
@@ -12,7 +12,7 @@ class EditProfile extends StatelessWidget {
   String? type;
 
   EditProfile(String? uid, {super.key}) {
-    this.type = uid;
+    type = uid;
   }
   List<String> addres = [
     'الاسم',
@@ -45,13 +45,13 @@ class EditProfile extends StatelessWidget {
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (!snapshot.hasData || !snapshot.data!.exists) {
-                    return Text('Document does not exist');
+                    return const Text('Document does not exist');
                   } else {
                     return Column(
                       children: [
@@ -63,22 +63,26 @@ class EditProfile extends StatelessWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: addres.length,
                           itemBuilder: (BuildContext context, int index) {
-                            if (index == 0)
+                            if (index == 0) {
                               return CustomListTile(
                                   text1: addres[index],
                                   text2: snapshot.data!.data()!["name"],
                                   filed: 'name',type:type!);
-                            if (index == 1)
+                            }
+                            if (index == 1) {
                               return CustomListTile(
                                   text1: addres[index],
                                   text2: snapshot.data!.data()!["phone"],filed: 'phone',type:type!);
-                            if (index == 2)
+                            }
+                            if (index == 2) {
                               return CustomListTile(
                                   text1: addres[index],
                                   text2: snapshot.data!.data()!["password"],filed: 'password',type:type!);
-                            if (index == 3)
+                            }
+                            if (index == 3) {
                               return CustomListTile(
                                   text1: addres[index], text2: snapshot.data!.data()!["adresse"],filed: 'none',type:type!);
+                            }
 
                             return CustomListTile(
                                 text1: addres[index],
@@ -115,7 +119,7 @@ class EditProfile extends StatelessWidget {
                                     txt2: 'هل انت متأكد من حذف حسابك',
                                     txt3: 'نعم',
                                     txt4: 'لا',
-                                   type:  this.type,
+                                   type:  type,
                                    data:   snapshot.data!.data()
                                     
                                   );

@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/reusable/text_style_helper.dart';
+import '../../../core/reusable/text_style_helper.dart';
 
 class ReceiverMessage extends StatelessWidget {
   ReceiverMessage({super.key, this.msg});
@@ -35,7 +35,7 @@ class ReceiverMessage extends StatelessWidget {
           ),
         ),
         // Optional: Add some spacing after the message container
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
       ],
     );
   }

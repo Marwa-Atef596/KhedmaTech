@@ -3,25 +3,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/RecommendedFavourites/Recommended.dart';
-import 'package:khedma_tech/views/notification/notify.dart';
-import 'package:khedma_tech/views/search%20page.dart';
-import 'package:khedma_tech/views/services%20page.dart';
-import 'package:khedma_tech/views/services/electricity.dart';
-import 'package:khedma_tech/views/widget/custom_address.dart';
-import 'package:khedma_tech/views/widget/custom_handman.dart';
-import 'package:khedma_tech/views/widget/custom_notify.dart';
-import 'package:khedma_tech/views/widget/custom_service.dart';
+import '../core/constent.dart';
+import 'RecommendedFavourites/Recommended.dart';
+import 'notification/notify.dart';
+import 'search%20page.dart';
+import 'services%20page.dart';
+import 'services/electricity.dart';
+import 'widget/custom_address.dart';
+import 'widget/custom_handman.dart';
+import 'widget/custom_notify.dart';
+import 'widget/custom_service.dart';
 
 import '../core/assets.dart';
 import 'services/Air conditioners.dart';
 import 'services/Paints.dart';
 import 'services/Plumbing.dart';
 import 'services/nagar.dart';
-import 'widget/custom_filter.dart';
-import 'widget/custom_txt_home.dart';
 
 // ignore: must_be_immutable
 class Home extends StatelessWidget {
@@ -85,7 +82,7 @@ class Home extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Notifications(),
+                            builder: (context) => const Notifications(),
                           ),
                         );
                       },
@@ -117,7 +114,7 @@ class Home extends StatelessWidget {
                   height: 16,
                 ),
 
-                Container(
+                SizedBox(
                   height: 100,
                   child: TextFormField(
                     onTap: () {
@@ -126,23 +123,23 @@ class Home extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SearchPage(),
+                          builder: (context) => const SearchPage(),
                         ),
                       );
                     },
                     textAlign: TextAlign.right,
-                    decoration: InputDecoration(
-                        focusedBorder: const OutlineInputBorder(
+                    decoration: const InputDecoration(
+                        focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: kcolor1, width: 1),
                             borderRadius: BorderRadius.all(Radius.circular(8))),
-                        enabledBorder: const OutlineInputBorder(
+                        enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: kcolor1, width: 1),
                             borderRadius: BorderRadius.all(Radius.circular(8))),
                         suffixIcon:
-                            const Icon(FontAwesomeIcons.magnifyingGlass),
+                            Icon(FontAwesomeIcons.magnifyingGlass),
                         suffixIconColor: kcolor2icon,
                         hintText: "بتدور ايه",
-                        border: const OutlineInputBorder(
+                        border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(8)))),
                   ),
@@ -212,47 +209,49 @@ class Home extends StatelessWidget {
                     builder: (context, snapshot) {
                       if(snapshot.connectionState==ConnectionState.waiting)
                         {
-                          return CircularProgressIndicator();
+                          return const CircularProgressIndicator();
 
                         }
                       if(snapshot.hasError)
                         {
-                          return Text("Erorr");
+                          return const Text("Erorr");
 
                         }
                       if(!snapshot.hasData || snapshot.data!.size==0)
                         {
-                          return Text("NO INFO");
+                          return const Text("NO INFO");
                         }
                       if(snapshot.data!.size==1 && snapshot.data!.docs.first.id==FirebaseAuth.instance.currentUser!.uid)
                         {
-                          return Text("لا يوجد مرشحين");
+                          return const Text("لا يوجد مرشحين");
                         }
                       List users=[];
                       users=snapshot.data!.docs;
                       users.sort((a, b) {
-                        num ranks_a=0;
+                        num ranksA=0;
                         for(int i=0;i<a["ranks"].length;i++)
                           {
-                            ranks_a+=a["ranks"][i]["value"];
+                            ranksA+=a["ranks"][i]["value"];
 
                           }
-                        if(a["ranks"].length!=0)
-                        ranks_a=ranks_a/a["ranks"].length;
-                        num ranks_b=0;
+                        if(a["ranks"].length!=0) {
+                          ranksA=ranksA/a["ranks"].length;
+                        }
+                        num ranksB=0;
                         for(int i=0;i<b["ranks"].length;i++)
                         {
-                          ranks_b+=b["ranks"][i]["value"];
+                          ranksB+=b["ranks"][i]["value"];
 
                         }
-                        if(b["ranks"].length!=0)
-                        ranks_b=ranks_b/b["ranks"].length;
-                        print(ranks_a);
-                        print(ranks_b);
-                        print(ranks_b.compareTo(ranks_a));
+                        if(b["ranks"].length!=0) {
+                          ranksB=ranksB/b["ranks"].length;
+                        }
+                        print(ranksA);
+                        print(ranksB);
+                        print(ranksB.compareTo(ranksA));
                         print("--------------------");
 
-                       return ranks_b.compareTo(ranks_a);
+                       return ranksB.compareTo(ranksA);
 
 
                       });
@@ -263,7 +262,7 @@ class Home extends StatelessWidget {
                         itemCount: users.length,
                         itemBuilder: (BuildContext context, int index) {
                           return  Padding(
-                            padding: EdgeInsets.only(bottom: 16),
+                            padding: const EdgeInsets.only(bottom: 16),
                             child: users[index].id!=FirebaseAuth.instance.currentUser!.uid? HandMan(users[index].id):null,
                           );
                         },

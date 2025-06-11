@@ -2,14 +2,13 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/assets.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/logins/verfication.dart';
+import '../../core/assets.dart';
+import '../../core/constent.dart';
+import 'verfication.dart';
 import 'package:get/get.dart';
 import '../widget/customAppbar.dart';
 import '../widget/customTxtFild.dart';
 import 'widget/custom_btn_log.dart';
-import 'widget/show_dialog.dart';
 
 class CheckPhoneNum extends StatelessWidget {
   String? name;
@@ -18,7 +17,7 @@ class CheckPhoneNum extends StatelessWidget {
   String? password;
   String? national_id;
   String? work;
-  TextEditingController controller = new TextEditingController();
+  TextEditingController controller = TextEditingController();
   CheckPhoneNum(String name, String phone, String useremail, String password,
       String national_id, String work,
       {super.key}) {
@@ -79,13 +78,13 @@ class CheckPhoneNum extends StatelessWidget {
                 CustomTxtFild(
                   keyboardType: TextInputType.phone,
                   prefixIcon: Container(
-                    child: Text(
+                    margin: const EdgeInsets.only(top: 15),
+                    child: const Text(
                       "+20",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    margin: EdgeInsets.only(top: 15),
                   ),
                   controller: controller,
                   txt: 'رقم الهاتف',
@@ -109,10 +108,10 @@ class CheckPhoneNum extends StatelessWidget {
                           "Notification", "جار إرسال كود التفعيل",
                           backgroundColor: Colors.blue);
                       print("*///////////////////");
-                      print(this.phone);
-                      await Future.delayed(Duration(seconds: 3), () async {
+                      print(phone);
+                      await Future.delayed(const Duration(seconds: 3), () async {
                         await FirebaseAuth.instance.verifyPhoneNumber(
-                          phoneNumber: this.phone!,
+                          phoneNumber: phone!,
                           timeout: const Duration(seconds: 60),
                           verificationCompleted:
                               (PhoneAuthCredential phoneAuthCredential) {
@@ -130,7 +129,7 @@ class CheckPhoneNum extends StatelessWidget {
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
-                                    title: Text("Error"),
+                                    title: const Text("Error"),
                                     content: Text("${authException.message}"),
                                   );
                                 });
@@ -142,12 +141,12 @@ class CheckPhoneNum extends StatelessWidget {
                             // Handle when the code is sent
 
                             Get.to(Verfiy(
-                              phone: this.phone,
-                              national_id: this.national_id,
-                              name: this.name,
-                              password: this.password,
+                              phone: phone,
+                              national_id: national_id,
+                              name: name,
+                              password: password,
                               verification_id: verificationId,
-                              work: this.work,
+                              work: work,
                             ));
 
                             // Store the verificationId for later use to verify the code

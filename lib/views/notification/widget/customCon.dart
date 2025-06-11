@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/constent.dart';
+import '../../../core/constent.dart';
 
 class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -11,23 +13,23 @@ class MyWidget extends StatelessWidget {
           color: kcolorc3, // Background color
           borderRadius: BorderRadius.circular(16), // Rounded corners
         ),
-        padding: EdgeInsets.all(20), // Padding for content
+        padding: const EdgeInsets.all(20), // Padding for content
         child: Row(
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color:
                     Colors.green, // Background color of the circular container
                 shape: BoxShape.circle,
               ),
-              padding: EdgeInsets.all(10), // Padding for the icon
-              child: Icon(
+              padding: const EdgeInsets.all(10), // Padding for the icon
+              child: const Icon(
                 Icons.check,
                 color: Colors.white,
               ),
             ),
-            SizedBox(width: 16), // Spacing between icon and text
-            Column(
+            const SizedBox(width: 16), // Spacing between icon and text
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Title', style: txtstyle11),

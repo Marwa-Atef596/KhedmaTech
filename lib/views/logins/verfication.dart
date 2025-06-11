@@ -1,23 +1,13 @@
-import 'dart:convert';
-
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/views/dashboard/home_handman.dart';
-import 'package:khedma_tech/views/logins/create_pass.dart';
-import 'package:khedma_tech/views/logins/widget/Check_adress.dart';
-import 'package:khedma_tech/views/logins/widget/show_dialog.dart';
-import 'package:khedma_tech/views/widget/customAppbar.dart';
-import 'package:khedma_tech/views/logins/widget/custom_btn_log.dart';
+import '../dashboard/home_handman.dart';
+import 'widget/Check_adress.dart';
+import '../widget/customAppbar.dart';
+import 'widget/custom_btn_log.dart';
 import 'package:pinput/pinput.dart';
-import '../../core/assets.dart';
 import '../../core/constent.dart';
 import '../home_page.dart';
-import 'widget/customVerfiy.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class Verfiy extends StatelessWidget {
@@ -66,7 +56,7 @@ class Verfiy extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.grey[400]),
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.blue)),
                   onCompleted: ((value) {
                     otp = value;
@@ -102,6 +92,7 @@ class Verfiy extends StatelessWidget {
                   height: 190,
                 ),
                 CustomBtnLog(
+                  Txtcolor: Colors.white,
                   title: 'تحقق من الكود',
                   backgroundColor: kcolor1,
                   onPressed: () async {
@@ -110,38 +101,26 @@ class Verfiy extends StatelessWidget {
                           backgroundColor: Colors.blue);
                     } else {
                       try {
-
-
-
                         PhoneAuthCredential credential =
                             PhoneAuthProvider.credential(
-                                verificationId: this.verification_id!,
-                                smsCode: otp);
+                                verificationId: verification_id!, smsCode: otp);
 
                         UserCredential uc = await FirebaseAuth.instance
                             .signInWithCredential(credential);
                         print(uc);
                         print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                        if(uc !=null && name!=null){
-
-                          Get.off(check_adress(name, this.phone, null, password, national_id, work));
-
-
-
-                        }
-                        else
-                          {
-
-                            if(name==null && uc!=null)
-                              {
-                                if(work=="user")
-                                Get.off(HomePage());
-                                else
-                                  Get.off(HomePageHandMan());
-                              }
-
+                        if (name != null) {
+                          Get.off(check_adress(
+                              name, phone, null, password, national_id, work));
+                        } else {
+                          if (name == null) {
+                            if (work == "user") {
+                              Get.off(HomePage());
+                            } else {
+                              Get.off(HomePageHandMan());
+                            }
                           }
-
+                        }
                       } catch (e) {
                         if (e is FirebaseAuthException) {
                           Get.snackbar(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/reusable/text_style_helper.dart';
+import '../../../core/reusable/text_style_helper.dart';
 
 class SendMessage extends StatelessWidget {
    SendMessage({super.key, this. msg});
@@ -33,7 +33,7 @@ class SendMessage extends StatelessWidget {
           child:  Column(
             children: [
               Text(
-                "${msg!}",
+                msg!,
                 style: AppTextStyleHelper.font14w400White,
 
               ),

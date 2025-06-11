@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/chat/chat_screen.dart';
-import 'package:khedma_tech/views/chat/widgets/chat_item.dart';
+import 'chat_screen.dart';
+import 'widgets/chat_item.dart';
 
 import '../../../core/constent.dart';
 
 class ChatListUser extends StatefulWidget {
-  ChatListUser({super.key});
+  const ChatListUser({super.key});
 
 
   @override
@@ -50,7 +50,7 @@ class ChatListUserState extends State<ChatListUser> {
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
 
               if (snapshot.hasError) {
@@ -58,7 +58,7 @@ class ChatListUserState extends State<ChatListUser> {
               }
 
               if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                 return Center(child: Text('No discussions found'));
+                 return const Center(child: Text('No discussions found'));
               }
 
               List<DocumentSnapshot> owner2Docs = snapshot.data!.docs;

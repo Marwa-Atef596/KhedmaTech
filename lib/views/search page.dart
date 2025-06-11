@@ -3,19 +3,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/result_search.dart';
-import 'package:khedma_tech/views/widget/custom%20bottom%20rate.dart';
-import 'package:khedma_tech/views/widget/customListBottom.dart';
-import 'package:khedma_tech/views/widget/custom_notify.dart';
-import 'package:khedma_tech/views/widget/custom_slider.dart';
-import 'logins/widget/custom_btn_log.dart';
-import 'widget/custom_filter.dart';
+import '../core/constent.dart';
+import 'widget/custom%20bottom%20rate.dart';
+import 'widget/customListBottom.dart';
+import 'widget/custom_notify.dart';
+import 'widget/custom_slider.dart';
 import 'widget/custom_handman.dart';
-import 'widget/custom_txt_home.dart';
 
 class SearchPage extends StatefulWidget {
-  SearchPage({super.key});
+  const SearchPage({super.key});
 
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -31,8 +27,8 @@ class _SearchPageState extends State<SearchPage> {
     '5',
   ];
   int? _selectedIndex;
-  RangeValues _currentRangeValues = const RangeValues(0, 150);
-  TextEditingController _contr = TextEditingController();
+  final RangeValues _currentRangeValues = const RangeValues(0, 150);
+  final TextEditingController _contr = TextEditingController();
   String _searchQuery = "";
   List<String> ServiceName = [
      'الكل',
@@ -69,18 +65,18 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
 
-    int index1_default=99;
-    int index2_default=99;
-    int index3_default=99;
-    int index4_default=99;
+    int index1Default=99;
+    int index2Default=99;
+    int index3Default=99;
+    int index4Default=99;
 
     Map filter = {};
     if (user == null) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Search Tasks'),
+          title: const Text('Search Tasks'),
         ),
-        body: Center(
+        body: const Center(
           child: Text('No user is currently signed in.'),
         ),
       );
@@ -93,6 +89,7 @@ class _SearchPageState extends State<SearchPage> {
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomNotify(
                   icon: Icons.arrow_forward,
@@ -156,7 +153,7 @@ class _SearchPageState extends State<SearchPage> {
                                           const SizedBox(
                                             height: 16,
                                           ),
-                                          customlistviewbottom(ServiceNames:this.ServiceName),
+                                          customlistviewbottom(ServiceNames:ServiceName),
                                           const SizedBox(
                                             height: 16,
                                           ),
@@ -167,7 +164,7 @@ class _SearchPageState extends State<SearchPage> {
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          RangeSliderExample(this._currentRangeValues! ),
+                                          RangeSliderExample(_currentRangeValues ),
                                           const SizedBox(
                                             height: 5,
                                           ),
@@ -178,7 +175,7 @@ class _SearchPageState extends State<SearchPage> {
                                           const SizedBox(
                                             height: 16,
                                           ),
-                                          custombottomrate(RatingNames:this.ratings ),
+                                          custombottomrate(RatingNames:ratings ),
                                           const SizedBox(
                                             height: 10,
                                           ),
@@ -236,7 +233,7 @@ class _SearchPageState extends State<SearchPage> {
                             )),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       height: 50,
                       width: 250,
                       child: TextField(
@@ -258,22 +255,22 @@ class _SearchPageState extends State<SearchPage> {
                         // },
                         // keyboardType:
                         //     TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                            focusedBorder: const OutlineInputBorder(
+                        decoration: const InputDecoration(
+                            focusedBorder: OutlineInputBorder(
                                 borderSide:
                                     BorderSide(color: kcolor1, width: 1),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8))),
-                            enabledBorder: const OutlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                                 borderSide:
                                     BorderSide(color: kcolor1, width: 1),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8))),
                             suffixIcon:
-                                const Icon(FontAwesomeIcons.magnifyingGlass),
+                                Icon(FontAwesomeIcons.magnifyingGlass),
                             suffixIconColor: kcolor2icon,
                             hintText: "بتدور ايه",
-                            border: const OutlineInputBorder(
+                            border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8)))),
                       ),
@@ -285,10 +282,10 @@ class _SearchPageState extends State<SearchPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      "$_searchQuery",
+                      _searchQuery,
                       style: txtstyle,
                     ),
-                    Text(
+                    const Text(
                       ' نتائج ل',
                       style: txtstyle1,
                     ),
@@ -309,19 +306,19 @@ class _SearchPageState extends State<SearchPage> {
                     stream: getFilteredHandymen(_searchQuery, index1, index2, index3,double.parse(ratings[index4])),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
-                        return Center(
+                        return const Center(
                           child: Text('Something went wrong'),
                         );
                       }
 
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
 
                       if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Center(
+                        return const Center(
                           child: Text('No handyman found'),
                         );
                       }
@@ -336,7 +333,7 @@ class _SearchPageState extends State<SearchPage> {
                           print("daata dataa ");
                           print(data);
                           return Padding(
-                            padding: EdgeInsets.only(bottom: 16),
+                            padding: const EdgeInsets.only(bottom: 16),
                             child: HandMan(snapshot.data![index].id),
                           );
                         },
@@ -346,7 +343,6 @@ class _SearchPageState extends State<SearchPage> {
                 })
                     ,
               ],
-              mainAxisAlignment: MainAxisAlignment.center,
             ),
           ),
         ),

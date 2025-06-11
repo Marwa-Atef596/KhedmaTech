@@ -3,14 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:khedma_tech/views/booking/widget/button1.dart';
-import 'package:khedma_tech/views/booking/widget/custombotombokking.dart';
+import 'widget/button1.dart';
 
 import '../../core/constent.dart';
 import '../chat/chat_screen.dart';
-import 'widget/CustomRowBokking.dart';
-import 'widget/Customtextrow2.dart';
 import 'widget/customVisibleContainer.dart';
 
 class RefusedBooking extends StatefulWidget {
@@ -66,7 +62,7 @@ class _RefusedBookingState extends State<RefusedBooking> with AutomaticKeepAlive
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (snapshot.hasError) {
@@ -76,7 +72,7 @@ class _RefusedBookingState extends State<RefusedBooking> with AutomaticKeepAlive
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
             print("==================================refused");
             print(snapshot.data!.docs);
-            return Center(child: Text('No reserves found'));
+            return const Center(child: Text('No reserves found'));
           }
           List<DocumentSnapshot> completed = snapshot.data!.docs;
 
@@ -146,7 +142,7 @@ class _RefusedBookingState extends State<RefusedBooking> with AutomaticKeepAlive
                             ),
                             Row(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   width: 50,
                                 ),
                                 StreamBuilder<DocumentSnapshot>(
@@ -157,7 +153,7 @@ class _RefusedBookingState extends State<RefusedBooking> with AutomaticKeepAlive
                                     builder: (context, snapshot) {
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
-                                        return Center(
+                                        return const Center(
                                             child: CircularProgressIndicator());
                                       }
 
@@ -169,7 +165,7 @@ class _RefusedBookingState extends State<RefusedBooking> with AutomaticKeepAlive
 
                                       if (!snapshot.hasData ||
                                           !snapshot.data!.exists) {
-                                        return Center(
+                                        return const Center(
                                             child: Text(
                                                 'No user information found'));
                                       }
@@ -181,7 +177,7 @@ class _RefusedBookingState extends State<RefusedBooking> with AutomaticKeepAlive
                                         children: [
                                           Text(
                                             "${userData["work"]}",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text('${userData["name"]}'),
@@ -238,21 +234,21 @@ class _RefusedBookingState extends State<RefusedBooking> with AutomaticKeepAlive
                                         .snapshots(),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasError) {
-                                        return Center(
+                                        return const Center(
                                           child: Text('Something went wrong'),
                                         );
                                       }
 
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
-                                        return Center(
+                                        return const Center(
                                           child: CircularProgressIndicator(),
                                         );
                                       }
 
                                       if (!snapshot.hasData ||
                                           !snapshot.data!.exists) {
-                                        return Center(
+                                        return const Center(
                                           child: Text(
                                               'No data found for this user'),
                                         );
@@ -271,7 +267,7 @@ class _RefusedBookingState extends State<RefusedBooking> with AutomaticKeepAlive
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
                                             children: [
-                                              Text("العنوان"),
+                                              const Text("العنوان"),
                                               Text(data["adresse"])
                                             ],
                                           ),
@@ -279,7 +275,7 @@ class _RefusedBookingState extends State<RefusedBooking> with AutomaticKeepAlive
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
                                             children: [
-                                              Text("السعر"),
+                                              const Text("السعر"),
                                               Text(data["price"])
                                             ],
                                           )

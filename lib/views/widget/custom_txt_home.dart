@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:khedma_tech/views/search%20page.dart';
+import '../search%20page.dart';
 
 import '../../core/constent.dart';
 
@@ -29,12 +29,14 @@ class CustomTxtHome extends StatelessWidget {
           
           onTap: () {
 
-          if(c!.text!="")  Navigator.push(
+          if(c!.text!="") {
+            Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>  SearchPage(),
+                builder: (context) =>  const SearchPage(),
               ),
             );
+          }
           },
           textAlign: TextAlign.right,
           //  onSaved: (newValue) {

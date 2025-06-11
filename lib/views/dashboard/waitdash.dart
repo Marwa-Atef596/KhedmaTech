@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/booking/waitbokking.dart';
+import '../booking/waitbokking.dart';
 
 import '../../core/constent.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/services/Satellite.dart';
-import 'package:khedma_tech/views/widget/custom_service.dart';
+import '../core/constent.dart';
+import 'services/Satellite.dart';
+import 'widget/custom_service.dart';
 
 import '../core/assets.dart';
 import 'services/Air conditioners.dart';

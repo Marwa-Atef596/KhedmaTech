@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/Rate%20&%20Review/widget/customtxtarea.dart';
-import 'package:khedma_tech/views/logins/widget/custom_btn_log.dart';
+import '../../core/constent.dart';
+import '../Rate%20&%20Review/widget/customtxtarea.dart';
+import '../logins/widget/custom_btn_log.dart';
 import '../../core/assets.dart';
 import '../logins/widget/show_dialog.dart';
 import '../widget/customAppService.dart';

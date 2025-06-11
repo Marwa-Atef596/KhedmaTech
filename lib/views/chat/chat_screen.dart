@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/reusable/text_style_helper.dart';
-import 'package:khedma_tech/views/chat/widgets/custom_text_field.dart';
-import 'package:khedma_tech/views/chat/widgets/messages_list.dart';
+import '../../core/reusable/text_style_helper.dart';
+import 'widgets/custom_text_field.dart';
+import 'widgets/messages_list.dart';
 
 import '../widget/customAppService.dart';
 
@@ -33,7 +31,7 @@ class ChatScreen extends StatelessWidget {
                 .snapshots(),
             builder: (context, snapshot1) {
               if (snapshot1.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
 
               if (snapshot1.hasError) {
@@ -41,19 +39,19 @@ class ChatScreen extends StatelessWidget {
               }
 
               if (!snapshot1.hasData || !snapshot1.data!.exists) {
-                return Center(child: Text('No user information found'));
+                return const Center(child: Text('No user information found'));
               }
 
               var disc = snapshot1.data!.data() as Map<String, dynamic>;
 
               return StreamBuilder<DocumentSnapshot>(
                   stream: FirebaseFirestore.instance
-                      .collection(this.type == "users" ? "handman" : "users")
-                      .doc(this.type=="users"?disc["receiver"]:disc["owner"])
+                      .collection(type == "users" ? "handman" : "users")
+                      .doc(type=="users"?disc["receiver"]:disc["owner"])
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     }
 
                     if (snapshot.hasError) {
@@ -68,7 +66,7 @@ class ChatScreen extends StatelessWidget {
                           .snapshots(),
                       builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                       }
 
                       if (snapshot.hasError) {
@@ -76,7 +74,7 @@ class ChatScreen extends StatelessWidget {
                       }
 
                       if (!snapshot.hasData || !snapshot.data!.exists) {
-                      return Center(child: Text('No user information found'));
+                      return const Center(child: Text('No user information found'));
                       }
                       var userData =
                       snapshot.data!.data() as Map<String, dynamic>;

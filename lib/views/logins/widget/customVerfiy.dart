@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constent.dart';
-import 'package:pinput/pinput.dart';
 class CustomVerfiy extends StatelessWidget {
   const CustomVerfiy({
     super.key,

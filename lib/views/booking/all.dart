@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/booking/widget/custombotombokking.dart';
 
 import '../../core/constent.dart';
 import 'widget/CustomRowBokking.dart';
-import 'widget/Customtextrow2.dart';
 import 'widget/customVisibleContainer.dart';
 
 class allBooking extends StatefulWidget {
@@ -43,7 +41,7 @@ class _allBookingState extends State<allBooking> {
     // TODO: implement initState
     super.initState();
     set_type();
-    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<type==${type}");
+    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<type==$type");
   }
 
 
@@ -61,7 +59,7 @@ class _allBookingState extends State<allBooking> {
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
 
             if (snapshot.hasError) {
@@ -69,7 +67,7 @@ class _allBookingState extends State<allBooking> {
             }
 
             if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-              return Center(child: Text('No reserves found'));
+              return const Center(child: Text('No reserves found'));
             }
             List<DocumentSnapshot> reserves = snapshot.data!.docs;
 
@@ -98,20 +96,20 @@ class _allBookingState extends State<allBooking> {
                             .snapshots(),
                         builder: (context, snapshot) {
                           if (snapshot.hasError) {
-                            return Center(
+                            return const Center(
                               child: Text('Something went wrong'),
                             );
                           }
 
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(),
                             );
                           }
 
                           if (!snapshot.hasData || !snapshot.data!.exists) {
-                            return Center(
+                            return const Center(
                               child: Text('No data found for this user'),
                             );
                           }
@@ -148,7 +146,7 @@ class _allBookingState extends State<allBooking> {
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
 
-                                            Text("العنوان"),
+                                            const Text("العنوان"),
                                             Text(data["adresse"])
                                           ],
                                         ),

@@ -6,7 +6,7 @@ import '../widget/customAppService.dart';
 import '../widget/custom_handman.dart';
 
 class Favourites extends StatefulWidget {
-   Favourites({super.key});
+   const Favourites({super.key});
 
   @override
   State<Favourites> createState() => _FavoritesState();
@@ -18,7 +18,7 @@ class _FavoritesState extends State<Favourites> {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 16,
           ),
           child: Column(
@@ -40,7 +40,7 @@ class _FavoritesState extends State<Favourites> {
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   } else if (snapshot.hasError) {
@@ -55,17 +55,17 @@ class _FavoritesState extends State<Favourites> {
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(),
                             );
                           } else if (snapshot.hasError) {
                             return Text('Error: ${snapshot.error}');
                           } else if (!snapshot.hasData ||
                               !snapshot.data!.exists) {
-                            return Text('لا يوجد حرفيين مفضلين');
+                            return const Text('لا يوجد حرفيين مفضلين');
                           }
                           List<dynamic> Friends = snapshot.data!.data()!["favorites"];
-                          if (Friends.length != 0)
+                          if (Friends.isNotEmpty) {
                             return Container(
                               child: ListView.builder(
                                 itemCount: Friends.length,
@@ -79,14 +79,14 @@ class _FavoritesState extends State<Favourites> {
                                     builder: (context, snapshot) {
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
-                                        return Center(
+                                        return const Center(
                                           child: CircularProgressIndicator(),
                                         );
                                       } else if (snapshot.hasError) {
                                         return Text('Error: ${snapshot.error}');
                                       } else if (!snapshot.hasData ||
                                           !snapshot.data!.exists) {
-                                        return Text('لا يوجد حرفيين مفضلين');
+                                        return const Text('لا يوجد حرفيين مفضلين');
                                       } else {
                                         print("hello");
                                         return HandMan(
@@ -98,14 +98,15 @@ class _FavoritesState extends State<Favourites> {
                                 },
                               ),
                             );
-                          else
-                            return Center(
+                          } else {
+                            return const Center(
                               child: Text("! لا يوجد حرفيين مفضلين "),
                             );
+                          }
                         });
                   } else {
                     List<dynamic> Friends = snapshot.data!.data()!["favorites"];
-                    if (Friends.length != 0)
+                    if (Friends.isNotEmpty) {
                       return Container(
                         child: ListView.builder(
                           itemCount: Friends.length,
@@ -119,14 +120,14 @@ class _FavoritesState extends State<Favourites> {
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Center(
+                                  return const Center(
                                     child: CircularProgressIndicator(),
                                   );
                                 } else if (snapshot.hasError) {
                                   return Text('Error: ${snapshot.error}');
                                 } else if (!snapshot.hasData ||
                                     !snapshot.data!.exists) {
-                                  return Text('لا يوجد حرفيين مفضلين');
+                                  return const Text('لا يوجد حرفيين مفضلين');
                                 } else {
                                   print("hello");
                                   return HandMan(
@@ -138,10 +139,11 @@ class _FavoritesState extends State<Favourites> {
                           },
                         ),
                       );
-                    else
-                      return Center(
+                    } else {
+                      return const Center(
                         child: Text("! لا يوجد حرفيين مفضلين "),
                       );
+                    }
                   }
                 },
               ))

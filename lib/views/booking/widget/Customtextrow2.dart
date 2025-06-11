@@ -25,10 +25,10 @@ class Customtextrow2 extends StatelessWidget {
           width: 20,
         ),
         StreamBuilder<DocumentSnapshot>(
-    stream: FirebaseFirestore.instance.collection('handman').doc(this.id).snapshots(),
+    stream: FirebaseFirestore.instance.collection('handman').doc(id).snapshots(),
     builder: (context, snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {
-    return Center(child: CircularProgressIndicator());
+    return const Center(child: CircularProgressIndicator());
     }
 
     if (snapshot.hasError) {
@@ -36,7 +36,7 @@ class Customtextrow2 extends StatelessWidget {
     }
 
     if (!snapshot.hasData || !snapshot.data!.exists) {
-    return Center(child: Text('No user information found'));
+    return const Center(child: Text('No user information found'));
     }
     var userData = snapshot.data!.data() as Map<String, dynamic>;
     return Text(txt1=='سعر المعاينة'?userData["adress"]:userData["price"]);}

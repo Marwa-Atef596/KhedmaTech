@@ -13,7 +13,7 @@ class CustomListTile extends StatelessWidget {
   final String text2;
   final String filed;
   final String type;
-  TextEditingController change = new TextEditingController();
+  TextEditingController change = TextEditingController();
   CustomListTile({
     super.key,
     //  required this.icon,
@@ -76,10 +76,10 @@ class CustomListTile extends StatelessWidget {
 
 
 
-                              if (change.text.length < 6)
+                              if (change.text.length < 6) {
                                 Get.snackbar("Notification", "password minimum 6 caracteres",
                                     backgroundColor: Colors.blue);
-                              else {
+                              } else {
 
 
                                 FirebaseFirestore.instance

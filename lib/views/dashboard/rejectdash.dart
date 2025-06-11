@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/booking/refusedbooking.dart';
 
 import '../../core/constent.dart';
 import '../widget/handman_booking.dart';
@@ -39,7 +38,7 @@ class RejectDash extends StatelessWidget {
         backgroundColor: Colors.white.withOpacity(0.5),
         elevation: 0,
       ),
-      body:  Padding(
+      body:  const Padding(
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: handman_Booking(),
       ),

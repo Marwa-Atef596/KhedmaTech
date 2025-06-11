@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:khedma_tech/views/chat/chat_screen.dart';
-import 'package:khedma_tech/views/chat/widgets/chat_list.dart';
+import '../../chat/chat_screen.dart';
 
 import '../../../core/constent.dart';
 import 'button1.dart';
@@ -46,7 +43,7 @@ class CustomRowBokking extends StatelessWidget {
                     .instance
                     .collection("discussions")
                     .where("receiver", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-                    .where("owner",isEqualTo: this.id)
+                    .where("owner",isEqualTo: id)
                     .get();
                 if (qs.docs.isNotEmpty) {
                   Get.to(ChatScreen(id: qs.docs.first.id,type: type ,));
@@ -56,7 +53,7 @@ class CustomRowBokking extends StatelessWidget {
                       .collection("discussions")
                       .add({
                     "owner":
-                    this.id,
+                    id,
                     "receiver": FirebaseAuth.instance.currentUser!.uid,
                     "messages": []
                   });
@@ -77,11 +74,11 @@ class CustomRowBokking extends StatelessWidget {
             StreamBuilder<DocumentSnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('users')
-                    .doc(this.id)
+                    .doc(id)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   if (snapshot.hasError) {
@@ -89,7 +86,7 @@ class CustomRowBokking extends StatelessWidget {
                   }
 
                   if (!snapshot.hasData || !snapshot.data!.exists) {
-                    return Center(child: Text('No user information found'));
+                    return const Center(child: Text('No user information found'));
                   }
 
                   var userData = snapshot.data!.data() as Map<String, dynamic>;

@@ -1,21 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/Rate%20&%20Review/widget/customdialograte.dart';
-import 'package:khedma_tech/views/Rate%20&%20Review/widget/customtxtarea.dart';
-import 'package:khedma_tech/views/logins/widget/custom_btn_log.dart';
-import 'package:khedma_tech/views/widget/customTxtFild.dart';
+import '../../core/constent.dart';
+import '../Rate%20&%20Review/widget/customdialograte.dart';
+import '../logins/widget/custom_btn_log.dart';
+import '../widget/customTxtFild.dart';
 
 import '../widget/customAppService.dart';
 
 class ContactUs extends StatelessWidget {
   String? uid;
 
-   ContactUs(String? this.uid, {super.key});
-   TextEditingController question=new TextEditingController();
-  TextEditingController name=new TextEditingController();
-  TextEditingController phone=new TextEditingController();
+  ContactUs(this.uid, {super.key});
+  TextEditingController question = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController phone = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +55,7 @@ class ContactUs extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
@@ -94,26 +93,26 @@ class ContactUs extends StatelessWidget {
                 height: 50,
               ),
               CustomBtnLog(
+                Txtcolor: Colors.white,
                 onPressed: () {
-                  try
-                  {
-                    FirebaseFirestore.instance.collection("contact_us").doc().set({
-                      "name": name.text ,
+                  try {
+                    FirebaseFirestore.instance
+                        .collection("contact_us")
+                        .doc()
+                        .set({
+                      "name": name.text,
                       "phone": phone.text,
                       "question": question.text,
-                      "owner":FirebaseAuth.instance.currentUser!.uid
+                      "owner": FirebaseAuth.instance.currentUser!.uid
                     });
                     showDialog(
                         context: context,
                         builder: (context) {
                           return DialogRate(
-
                             txt: 'تم ارسال استفسارك',
                           );
                         });
-                  }
-                  catch (e)
-                  {
+                  } catch (e) {
                     showDialog(
                         context: context,
                         builder: (context) {
@@ -122,7 +121,6 @@ class ContactUs extends StatelessWidget {
                           );
                         });
                   }
-
                 },
                 title: 'ارسال',
                 backgroundColor: kcolor1,

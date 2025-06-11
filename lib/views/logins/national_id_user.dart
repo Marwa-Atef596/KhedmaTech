@@ -2,12 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/logins/verfication.dart';
-import 'package:khedma_tech/views/logins/verify_user.dart';
-import 'package:khedma_tech/views/logins/widget/show_dialog.dart';
-import 'package:khedma_tech/views/widget/customTxtFild.dart';
-import 'package:khedma_tech/views/logins/work.dart';
+import '../../core/constent.dart';
+import 'verify_user.dart';
+import 'widget/show_dialog.dart';
+import '../widget/customTxtFild.dart';
 import '../../core/assets.dart';
 import 'widget/custom_btn_log.dart';
 
@@ -27,7 +25,7 @@ class national_id_user extends StatelessWidget {
     this.phone = phone;
     this.useremail = useremail;
     this.password = password;
-    this.type = type;
+    type = type;
   }
   final TextEditingController _nationalIdController = TextEditingController();
   Future<bool> Verify_existance_uid(String uid) async {
@@ -66,7 +64,7 @@ class national_id_user extends StatelessWidget {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Image(
+                      child: const Image(
                         image: AssetImage(AssetsData.icon),
                         height: 60,
                       ),
@@ -122,17 +120,17 @@ class national_id_user extends StatelessWidget {
         Get.snackbar("Error", "رقم قومي تابع لمستخدم اخر");
       } else {
         if (email == true) {
-          TextEditingController adresse = new TextEditingController();
+          TextEditingController adresse = TextEditingController();
           Get.bottomSheet(isDismissible: false ,BottomSheet(
             onClosing: () {},
             builder: (context) {
-              return Container(
+              return SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 50 / 100,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width*90/100,
                       height: MediaQuery.of(context).size.height * 5 / 100,
                       child: TextField(
@@ -142,7 +140,7 @@ class national_id_user extends StatelessWidget {
                         controller: adresse,
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width*90/100,
                       height: MediaQuery.of(context).size.height * 5 / 100,
                       child: CustomBtnLog(
@@ -156,11 +154,11 @@ class national_id_user extends StatelessWidget {
                               Navigator.of(context).pop();
                               Get.snackbar("Notification", "جار تسجيل حسابك");
 
-                              await Future.delayed(Duration(seconds: 3), () async {
+                              await Future.delayed(const Duration(seconds: 3), () async {
 
                                 UserCredential uc = await FirebaseAuth.instance
                                     .createUserWithEmailAndPassword(
-                                    email: this.useremail!, password: this.password!);
+                                    email: useremail!, password: password!);
                                 InsertData(name,phone,useremail,password,_nationalIdController.text,uc.user!.uid,adresse.text);
                                 showDialog(
                                     context: c,
@@ -176,7 +174,7 @@ class national_id_user extends StatelessWidget {
                             }
                         },
                         Txtcolor: Colors.black,
-                        side: BorderSide(width: 1),
+                        side: const BorderSide(width: 1),
                         title: "ادخل العنوان",
                         backgroundColor: Colors.blue,
                       ),
@@ -190,9 +188,9 @@ class national_id_user extends StatelessWidget {
         } else {
           Get.snackbar("Notification", "جار ارسال الكود ",
               backgroundColor: Colors.blue);
-          await Future.delayed(Duration(seconds: 3), () async {
+          await Future.delayed(const Duration(seconds: 3), () async {
             await FirebaseAuth.instance.verifyPhoneNumber(
-              phoneNumber: "+20" + phone!,
+              phoneNumber: "+20${phone!}",
               timeout: const Duration(seconds: 60),
               verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {
                 // Auto-resolving SMS code (this could happen when the phone number
@@ -208,7 +206,7 @@ class national_id_user extends StatelessWidget {
                     context: c,
                     builder: (context) {
                       return AlertDialog(
-                        title: Text("Error"),
+                        title: const Text("Error"),
                         content: Text("${authException.message}"),
                       );
                     });
@@ -219,10 +217,10 @@ class national_id_user extends StatelessWidget {
                 // Handle when the code is sent
 
                 Get.off(verify_user(
-                  phone: "+20" + phone!,
+                  phone: "+20${phone!}",
                   national_id: _nationalIdController.text,
-                  name: this.name,
-                  password: this.password,
+                  name: name,
+                  password: password,
                   verification_id: verificationId,
                 ));
 
@@ -247,7 +245,7 @@ class national_id_user extends StatelessWidget {
     print(name);
     FirebaseFirestore.instance.collection("users").doc(id).set({
       "name": name,
-      "phone": "+20" + phone!,
+      "phone": "+20${phone!}",
       "email": useremail,
       "password": password,
       "national_id": nid,

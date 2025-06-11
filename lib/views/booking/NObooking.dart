@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/booking/farward2.dart';
-import 'package:khedma_tech/views/booking/refusedbooking.dart';
+import '../../core/constent.dart';
+import 'farward2.dart';
+import 'refusedbooking.dart';
 import '../handman_Booking_completed.dart';
 import '../widget/handman_Booking_forward.dart';
 import '../widget/handman_booking.dart';
@@ -48,7 +47,7 @@ class _NoBookingState extends State<NoBooking>
   }
   Future<void> _initializeAsync() async {
     // Simulate an asynchronous operation
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     setState(() {
       _isInitialized = true;
     });
@@ -70,14 +69,14 @@ class _NoBookingState extends State<NoBooking>
   }
 
   List<Widget> widgets = [
-    RefusedBooking(),
-    CompleteBooking(),
-    FarwardBooking2(),
+    const RefusedBooking(),
+    const CompleteBooking(),
+    const FarwardBooking2(),
   ];
   List<Widget> widgets2 = [
-    handman_Booking(),
-    handman_Booking_completed(),
-    handman_Booking_forward(),
+    const handman_Booking(),
+    const handman_Booking_completed(),
+    const handman_Booking_forward(),
   ];
   bool _isInitialized = false;
 
@@ -132,13 +131,13 @@ class _NoBookingState extends State<NoBooking>
             child: _isInitialized
                 ? TabBarView(
               controller: _tabController,
-              children: [
+              children: const [
                 RefusedBooking(),
                 CompleteBooking(),
                 FarwardBooking2(),
               ],
             )
-                : Center(child: CircularProgressIndicator()),
+                : const Center(child: CircularProgressIndicator()),
           ),
         ]),
       )),

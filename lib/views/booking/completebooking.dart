@@ -3,15 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:khedma_tech/views/booking/widget/button1.dart';
-import 'package:khedma_tech/views/booking/widget/custombotombokking.dart';
+import 'widget/button1.dart';
 
 import '../../core/constent.dart';
 import '../Rate & Review/Rate & Review.dart';
 import '../chat/chat_screen.dart';
-import 'widget/CustomRowBokking.dart';
-import 'widget/Customtextrow2.dart';
 import 'widget/customVisibleContainer.dart';
 
 class CompleteBooking extends StatefulWidget {
@@ -21,7 +17,8 @@ class CompleteBooking extends StatefulWidget {
   CompleteBookingState createState() => CompleteBookingState();
 }
 
-class CompleteBookingState extends State<CompleteBooking>  with AutomaticKeepAliveClientMixin{
+class CompleteBookingState extends State<CompleteBooking>
+    with AutomaticKeepAliveClientMixin {
   bool isVisible = false;
   @override
   bool get wantKeepAlive => true;
@@ -45,6 +42,7 @@ class CompleteBookingState extends State<CompleteBooking>  with AutomaticKeepAli
       type = "user";
     }
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -52,23 +50,20 @@ class CompleteBookingState extends State<CompleteBooking>  with AutomaticKeepAli
     set_type();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('reserves')
-              .where( 'owner' ,
-              isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-          .where("type",isEqualTo: "completed")
+              .where('owner', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+              .where("type", isEqualTo: "completed")
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
 
             if (snapshot.hasError) {
@@ -78,7 +73,7 @@ class CompleteBookingState extends State<CompleteBooking>  with AutomaticKeepAli
             if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
               print("==================================compeleted");
               print(snapshot.data!.docs);
-              return Center(child: Text('No reserves found'));
+              return const Center(child: Text('No reserves found'));
             }
             List<DocumentSnapshot> reserves = snapshot.data!.docs;
 
@@ -106,37 +101,52 @@ class CompleteBookingState extends State<CompleteBooking>  with AutomaticKeepAli
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                decoration:
-                                const BoxDecoration(shape: BoxShape.circle, color: background),
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle, color: background),
                                 child: IconButton(
                                     onPressed: () async {
-
-                                      String type="";
-                                      DocumentSnapshot doc = await FirebaseFirestore.instance
-                                          .collection("handman")
-                                          .doc(FirebaseAuth.instance.currentUser!.uid)
-                                          .get();
+                                      String type = "";
+                                      DocumentSnapshot doc =
+                                          await FirebaseFirestore
+                                              .instance
+                                              .collection("handman")
+                                              .doc(FirebaseAuth
+                                                  .instance.currentUser!.uid)
+                                              .get();
                                       if (doc.exists) {
-                                        type="handman";
+                                        type = "handman";
                                       } else {
-                                        type="users";
+                                        type = "users";
                                         //
                                       }
-                                      QuerySnapshot qs=await FirebaseFirestore.instance.collection("discussions").where("receiver",isEqualTo: reserves[index]["receiver"]).get();
-                                      if(qs.docs.isNotEmpty)
-                                      {
-                                        Get.to(ChatScreen(id :qs.docs.first.id,type: type,));
-                                      }
-                                      else{
-                                        DocumentReference doc=await    FirebaseFirestore.instance.collection("discussions").add({
-                                          "owner":FirebaseAuth.instance.currentUser!.uid,
-                                          "receiver":reserves[index]["receiver"],
-                                          "messages":[]
+                                      QuerySnapshot qs = await FirebaseFirestore
+                                          .instance
+                                          .collection("discussions")
+                                          .where("receiver",
+                                              isEqualTo: reserves[index]
+                                                  ["receiver"])
+                                          .get();
+                                      if (qs.docs.isNotEmpty) {
+                                        Get.to(ChatScreen(
+                                          id: qs.docs.first.id,
+                                          type: type,
+                                        ));
+                                      } else {
+                                        DocumentReference doc =
+                                            await FirebaseFirestore.instance
+                                                .collection("discussions")
+                                                .add({
+                                          "owner": FirebaseAuth
+                                              .instance.currentUser!.uid,
+                                          "receiver": reserves[index]
+                                              ["receiver"],
+                                          "messages": []
                                         });
                                         print("not exist");
-                                        Get.to(ChatScreen(id :doc.id,type: type,));
-
-
+                                        Get.to(ChatScreen(
+                                          id: doc.id,
+                                          type: type,
+                                        ));
                                       }
                                     },
                                     icon: const Icon(
@@ -146,7 +156,7 @@ class CompleteBookingState extends State<CompleteBooking>  with AutomaticKeepAli
                               ),
                               Row(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 60,
                                   ),
                                   StreamBuilder<DocumentSnapshot>(
@@ -155,19 +165,28 @@ class CompleteBookingState extends State<CompleteBooking>  with AutomaticKeepAli
                                           .doc(reserves[index]["receiver"])
                                           .snapshots(),
                                       builder: (context, snapshot) {
-                                        if (snapshot.connectionState == ConnectionState.waiting) {
-                                          return Center(child: CircularProgressIndicator());
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return const Center(
+                                              child:
+                                                  CircularProgressIndicator());
                                         }
 
                                         if (snapshot.hasError) {
-                                          return Center(child: Text('Error: ${snapshot.error}'));
+                                          return Center(
+                                              child: Text(
+                                                  'Error: ${snapshot.error}'));
                                         }
 
-                                        if (!snapshot.hasData || !snapshot.data!.exists) {
-                                          return Center(child: Text('No user information found'));
+                                        if (!snapshot.hasData ||
+                                            !snapshot.data!.exists) {
+                                          return const Center(
+                                              child: Text(
+                                                  'No user information found'));
                                         }
 
-                                        var userData = snapshot.data!.data() as Map<String, dynamic>;
+                                        var userData = snapshot.data!.data()
+                                            as Map<String, dynamic>;
 
                                         return Column(
                                           children: [
@@ -176,11 +195,8 @@ class CompleteBookingState extends State<CompleteBooking>  with AutomaticKeepAli
                                             CustomButton1Booking(
                                               backgroundColor: Colors.green,
                                               text: "مكتملة",
-                                              onPressed: () {
-
-                                              },
+                                              onPressed: () {},
                                             ),
-
                                           ],
                                         );
                                       }),
@@ -189,7 +205,8 @@ class CompleteBookingState extends State<CompleteBooking>  with AutomaticKeepAli
                                   ),
                                   Container(
                                     decoration: BoxDecoration(
-                                        color: background, borderRadius: BorderRadius.circular(8)),
+                                        color: background,
+                                        borderRadius: BorderRadius.circular(8)),
                                     height: 120,
                                     child: FittedBox(
                                       child: Image.asset(
@@ -212,10 +229,8 @@ class CompleteBookingState extends State<CompleteBooking>  with AutomaticKeepAli
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 8),
                                 child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-
                                     const SizedBox(
                                       height: 16,
                                     ),
@@ -226,49 +241,54 @@ class CompleteBookingState extends State<CompleteBooking>  with AutomaticKeepAli
                                           .snapshots(),
                                       builder: (context, snapshot) {
                                         if (snapshot.hasError) {
-                                          return Center(
+                                          return const Center(
                                             child: Text('Something went wrong'),
                                           );
                                         }
 
                                         if (snapshot.connectionState ==
                                             ConnectionState.waiting) {
-                                          return Center(
+                                          return const Center(
                                             child: CircularProgressIndicator(),
                                           );
                                         }
 
                                         if (!snapshot.hasData ||
                                             !snapshot.data!.exists) {
-                                          return Center(
+                                          return const Center(
                                             child: Text(
                                                 'No data found for this user'),
                                           );
                                         }
 
                                         Map<String, dynamic> data =
-                                        snapshot.data!.data()
-                                        as Map<String, dynamic>;
+                                            snapshot.data!.data()
+                                                as Map<String, dynamic>;
 
                                         // Assuming 'completedTasks' is a list of completed task IDs or similar
                                         int completedTasksCount =
                                             data['completedTasks']?.length ?? 0;
 
-                                        return Column(children: [Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                        return Column(
                                           children: [
-                                            Text("العنوان"),
-                                            Text(data["adresse"])
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                const Text("العنوان"),
+                                                Text(data["adresse"])
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                const Text("السعر"),
+                                                Text(data["price"])
+                                              ],
+                                            )
                                           ],
-                                        ),Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text("السعر"),
-                                            Text(data["price"])
-                                          ],
-                                        )],);
+                                        );
                                       },
                                     ),
                                     const SizedBox(
@@ -282,20 +302,18 @@ class CompleteBookingState extends State<CompleteBooking>  with AutomaticKeepAli
                                       backgroundColor: Colors.blue,
                                       text: "قيم الخدمة",
                                       onPressed: () {
-
-
-                                  Get.to(Rate(doc: reserves[index],));
+                                        Get.to(Rate(
+                                          doc: reserves[index],
+                                        ));
                                       },
                                     )
-
                                   ],
                                 ),
                               ),
                             ),
                           GestureDetector(
                             onTap: () => Visability(index),
-                            child: customVisibleContainer(
-                                isVisible: isVisible),
+                            child: customVisibleContainer(isVisible: isVisible),
                           ),
                         ],
                       ),

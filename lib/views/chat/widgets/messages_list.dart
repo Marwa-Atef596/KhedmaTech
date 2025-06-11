@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/chat/widgets/recieved_message.dart';
-import 'package:khedma_tech/views/chat/widgets/send_message.dart';
+import 'recieved_message.dart';
+import 'send_message.dart';
 
 class MessagesList extends StatelessWidget {
    MessagesList({super.key, this.messages});

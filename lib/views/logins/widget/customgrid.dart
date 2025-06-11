@@ -5,7 +5,7 @@ import '../../../core/constent.dart';
 import 'custom_worl.dart';
 
 class customgrid extends StatefulWidget {
-   _customgridState c=new _customgridState();
+   _customgridState c=_customgridState();
    customgrid({super.key});
 
   @override

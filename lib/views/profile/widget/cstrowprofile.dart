@@ -28,7 +28,7 @@ class Cstrowprofile extends StatelessWidget {
         txt!=null?Text(
           txt!,
           style: txtstyle6,
-        ):Text("")
+        ):const Text("")
       ],
     );
   }

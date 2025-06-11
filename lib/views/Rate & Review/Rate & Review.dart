@@ -1,26 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/logins/widget/custom_btn_log.dart';
+import '../../core/constent.dart';
+import '../logins/widget/custom_btn_log.dart';
 import '../widget/customAppService.dart';
 import 'widget/customdialograte.dart';
-import 'widget/customratingRewie.dart';
-import 'widget/customtxtarea.dart';
 import 'package:custom_rating_bar/custom_rating_bar.dart';
 
 class Rate extends StatefulWidget {
-   Rate({this.doc,super.key});
-DocumentSnapshot? doc;
+  Rate({this.doc, super.key});
+  DocumentSnapshot? doc;
   @override
   State<Rate> createState() => _RateState(doc: doc);
 }
 
 class _RateState extends State<Rate> {
-  _RateState( {this.doc});
+  _RateState({this.doc});
   DocumentSnapshot? doc;
-  TextEditingController comment=new TextEditingController();
-  double rating=3;
+  TextEditingController comment = TextEditingController();
+  double rating = 3;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -56,34 +54,33 @@ class _RateState extends State<Rate> {
                     style: txtstyle1,
                   ),
                 ),
-                Container(width: MediaQuery.of(context).size.width*90/100,height: 40,
-                    child: Center(child: RatingBar(
-                      alignment: Alignment.center,
-                      filledIcon: Icons.star,
-                      emptyIcon: Icons.star_border,
-                      onRatingChanged: (value) {
-
-                        setState(() {
-                          rating=value ;
-                        });
-
-
-
-                      },
-                      initialRating: 3,
-                      maxRating: 5,
-                    ),)
-                ),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * 90 / 100,
+                    height: 40,
+                    child: Center(
+                      child: RatingBar(
+                        alignment: Alignment.center,
+                        filledIcon: Icons.star,
+                        emptyIcon: Icons.star_border,
+                        onRatingChanged: (value) {
+                          setState(() {
+                            rating = value;
+                          });
+                        },
+                        initialRating: 3,
+                        maxRating: 5,
+                      ),
+                    )),
                 const SizedBox(
                   height: 100,
                 ),
                 Column(
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          "اكتب تعليقك"!,
+                          "اكتب تعليقك",
                           style: txtstyle1,
                         ),
                       ],
@@ -117,21 +114,25 @@ class _RateState extends State<Rate> {
                   height: 30,
                 ),
                 CustomBtnLog(
+                  Txtcolor: Colors.white,
                   title: 'ارسال',
                   onPressed: () async {
-
-                    DocumentSnapshot doc=await   FirebaseFirestore.instance.collection("handman").doc(this.doc!["receiver"]).get();
-                    List ranks=doc.get("ranks");
+                    DocumentSnapshot doc = await FirebaseFirestore.instance
+                        .collection("handman")
+                        .doc(this.doc!["receiver"])
+                        .get();
+                    List ranks = doc.get("ranks");
 
                     ranks.add({
-                      "owner":FirebaseAuth.instance.currentUser!.uid,
-                      "value":rating,
-                      "comment":comment.text,
-                      "work":this.doc!.id
+                      "owner": FirebaseAuth.instance.currentUser!.uid,
+                      "value": rating,
+                      "comment": comment.text,
+                      "work": this.doc!.id
                     });
-                    FirebaseFirestore.instance.collection("handman").doc(this.doc!["receiver"]).update({
-                      "ranks":ranks
-                    });
+                    FirebaseFirestore.instance
+                        .collection("handman")
+                        .doc(this.doc!["receiver"])
+                        .update({"ranks": ranks});
 
                     showDialog(
                         context: context,
@@ -151,5 +152,3 @@ class _RateState extends State<Rate> {
     );
   }
 }
-
-

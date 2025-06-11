@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/constent.dart';
+import '../core/constent.dart';
 
 class SlidingText extends StatelessWidget {
   const SlidingText({

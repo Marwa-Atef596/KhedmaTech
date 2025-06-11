@@ -1,15 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/logins/checkPhone.dart';
-import 'package:khedma_tech/views/logins/id.dart';
-import 'package:khedma_tech/views/logins/log.dart';
-import 'package:khedma_tech/views/logins/national_id_user.dart';
-import 'package:khedma_tech/views/logins/widget/custom_btn_log.dart';
-import 'package:khedma_tech/views/logins/widget/show_dialog.dart';
-import '../../core/assets.dart';
+import '../../core/constent.dart';
+import 'log.dart';
+import 'national_id_user.dart';
+import 'widget/custom_btn_log.dart';
 import '../widget/customTxtFild.dart';
 import '../widget/custom_contianer.dart';
 import '../widget/custom_txt_logs.dart';
@@ -17,11 +12,12 @@ import '../widget/custom_txt_logs.dart';
 class SignUser extends StatelessWidget {
   SignUser({super.key});
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   Future<bool> Verify_existance_email_user(String email) async {
     QuerySnapshot qs = await FirebaseFirestore.instance
@@ -40,33 +36,33 @@ class SignUser extends StatelessWidget {
     }
     return false;
   }
+
   Future<bool> Verify_existance_user(String phone) async {
     QuerySnapshot qs = await FirebaseFirestore.instance
         .collection("users")
-        .where("phone", isEqualTo: "+20"+phone)
+        .where("phone", isEqualTo: "+20$phone")
         .get();
     if (qs.docs.isNotEmpty) {
       return true;
     }
     QuerySnapshot qs2 = await FirebaseFirestore.instance
         .collection("handman")
-        .where("phone", isEqualTo: "+20"+phone)
+        .where("phone", isEqualTo: "+20$phone")
         .get();
     if (qs2.docs.isNotEmpty) {
       return true;
     }
     return false;
   }
+
   void go_to_id_num_whith_email(String name, String phone, String email,
       String password, BuildContext c) {
-
     Get.off(national_id_user(true, name, phone, email, password));
   }
+
   void go_to_id_num_whithout_email(String name, String phone, String email,
       String password, BuildContext c) {
-
     Get.off(national_id_user(false, name, phone, email, password));
-
   }
 
   Future<void> Handle_Signin(String name, String phone, String email,
@@ -75,33 +71,23 @@ class SignUser extends StatelessWidget {
       if (await Verify_existance_user(phone) == false) {
         go_to_id_num_whithout_email(name, phone, email, password, c);
       } else {
-
-        Get.snackbar("Error", "رقم هاتف مستعمل من قبل",backgroundColor: Colors.blue);
-
+        Get.snackbar("Error", "رقم هاتف مستعمل من قبل",
+            backgroundColor: Colors.blue);
       }
     } else {
       if (await Verify_existance_user(phone) == false) {
-        if(await Verify_existance_email_user(email)==false)
-          {
-
-            go_to_id_num_whith_email(name, phone, email, password, c);
-          }
-        else
-          {
-
-            Get.snackbar("Error", "ايمايل مستعمل من قبل",backgroundColor: Colors.blue);
-
-          }
+        if (await Verify_existance_email_user(email) == false) {
+          go_to_id_num_whith_email(name, phone, email, password, c);
+        } else {
+          Get.snackbar("Error", "ايمايل مستعمل من قبل",
+              backgroundColor: Colors.blue);
+        }
       } else {
-        Get.snackbar("Error", "رقم هاتف مستعمل من قبل",backgroundColor: Colors.blue);
-
+        Get.snackbar("Error", "رقم هاتف مستعمل من قبل",
+            backgroundColor: Colors.blue);
       }
     }
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +115,7 @@ class SignUser extends StatelessWidget {
                       controller: _nameController,
                       validator: (value) {
                         print(value);
-                        if (value!.isEmpty || value.length == 0) {
+                        if (value!.isEmpty || value.isEmpty) {
                           return 'الرجاء ادخال الاسم';
                         }
                         return null;
@@ -138,8 +124,8 @@ class SignUser extends StatelessWidget {
                     ),
                     CustomTxtFild(
                       prefixIcon: Container(
-                        margin: EdgeInsets.only(top: 15, left: 15),
-                        child: Text(
+                        margin: const EdgeInsets.only(top: 15, left: 15),
+                        child: const Text(
                           "+20",
                           textDirection: TextDirection.ltr,
                           style: TextStyle(fontWeight: FontWeight.bold),
@@ -150,14 +136,13 @@ class SignUser extends StatelessWidget {
                       validator: (value) {
                         print(value);
                         if (value!.isEmpty ||
-                            value.length == 0 ||
+                            value.isEmpty ||
                             value.length != 10) {
                           return '   الرجاء ادخال رقم هاتف صحيح ';
                         }
                         return null;
                       },
                       txt: 'رقم الهاتف',
-                      
                     ),
                     CustomTxtFild(
                       controller: _emailController,
@@ -173,7 +158,7 @@ class SignUser extends StatelessWidget {
                       controller: _passwordController,
                       validator: (value) {
                         print(value);
-                        if (value!.isEmpty || value.length == 0) {
+                        if (value!.isEmpty || value.isEmpty) {
                           return 'الرجاء ادخال كلمة السر';
                         }
                         return null;
@@ -197,6 +182,7 @@ class SignUser extends StatelessWidget {
                       height: 16,
                     ),
                     CustomBtnLog(
+                      Txtcolor: Colors.white,
                       title: 'انشاء حساب',
                       backgroundColor: kcolor1,
                       onPressed: () async {
@@ -219,7 +205,6 @@ class SignUser extends StatelessWidget {
                       children: [
                         InkWell(
                             onTap: () {
-
                               Get.to(Log());
                             },
                             child: const Text(

@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../core/constent.dart';
 import '../search page.dart';
@@ -10,7 +9,7 @@ class RangeSliderExample extends StatefulWidget {
    late RangeValues local;
    RangeSliderExample(RangeValues range, {super.key})
   {
-this.local=range;
+local=range;
   }
 
 
@@ -23,7 +22,7 @@ class _RangeSliderExampleState extends State<RangeSliderExample> {
  final MyController myController = Get.put(MyController());
   _RangeSliderExampleState(RangeValues local)
   {
-    this._currentRangeValues=local;
+    _currentRangeValues=local;
   }
 
   @override

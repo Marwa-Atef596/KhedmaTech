@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/views/booking/widget/button1.dart';
-import 'package:khedma_tech/views/widget/custom_bottom_navigate.dart';
+import 'booking/widget/button1.dart';
 
 import 'chat/chat_screen.dart';
 
@@ -22,19 +20,19 @@ class details_handman extends StatelessWidget {
         child: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
               .collection("handman")
-              .doc(this.data)
+              .doc(data)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
             if (snapshot.hasError) {
-              return Text("Error");
+              return const Text("Error");
             }
             if (snapshot.hasData == false || snapshot.data!.exists == false) {
-              return Center(
+              return const Center(
                 child: Text("NO user"),
               );
             }
@@ -56,6 +54,8 @@ class details_handman extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   margin: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 5 / 100),
+                  height: MediaQuery.of(context).size.height * 40 / 100,
+                  color: Colors.red,
                   child: Stack(
                     alignment: Alignment.topLeft,
                     children: [
@@ -72,120 +72,120 @@ class details_handman extends StatelessWidget {
                           onPressed: () {
                             Get.back();
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.arrow_back,
                             color: Colors.red,
                             size: 30,
                           ))
                     ],
                   ),
-                  height: MediaQuery.of(context).size.height * 40 / 100,
-                  color: Colors.red,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 90 / 100,
+                  margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 2 / 100),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
                           onPressed: () async {
-                            print(this.type);
+                            print(type);
                             print("------------------------------------------------");
                             print(FirebaseAuth.instance.currentUser!.uid);
                             DocumentSnapshot dc = await FirebaseFirestore
                                 .instance
-                                .collection(this.type=="users"?"users":"handman")
+                                .collection(type=="users"?"users":"handman")
                                 .doc(FirebaseAuth.instance.currentUser!.uid)
                                 .get();
                             List fav = dc["favorites"];
-                            if (fav.contains(this.data))
-                              fav.remove(this.data);
-                            else
-                              fav.add(this.data);
+                            if (fav.contains(data)) {
+                              fav.remove(data);
+                            } else {
+                              fav.add(data);
+                            }
                             FirebaseFirestore.instance
-                                .collection(this.type=="users"?"users":"handman")
+                                .collection(type=="users"?"users":"handman")
                                 .doc(FirebaseAuth.instance.currentUser!.uid)
                                 .update({"favorites": fav});
-                            if (fav.contains(this.data))
+                            if (fav.contains(data)) {
                               Get.snackbar("Notification", "تمت الاضافة ",
                                   backgroundColor: Colors.green);
-                            else
+                            } else {
                               Get.snackbar("Notification", "تمت الازالة",
                                   backgroundColor: Colors.green);
+                            }
                           },
                           icon: StreamBuilder<DocumentSnapshot>(
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Text("");
+                                return const Text("");
                               }
                               List fav = snapshot.data!["favorites"];
-                              if (fav.contains(this.data)) {
-                                return Icon(
+                              if (fav.contains(data)) {
+                                return const Icon(
                                   CupertinoIcons.heart_fill,
                                   color: Colors.red,
                                 );
                               }
-                              return Icon(
+                              return const Icon(
                                 CupertinoIcons.heart,
                                 color: Colors.lightBlue,
                               );
                             },
                             stream: FirebaseFirestore.instance
-                                .collection(this.type=="users"?"users":"handman")
+                                .collection(type=="users"?"users":"handman")
                                 .doc(FirebaseAuth.instance.currentUser!.uid)
                                 .snapshots(),
                           )),
                       Text(
                         "${snapshot.data!["work"]}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.lightBlue,
                             fontSize: 20),
                       )
                     ],
                   ),
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 2 / 100),
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 90 / 100,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(""),
+                      const Text(""),
                       Container(
                         child: Row(
                           children: [
                             Container(
+                              margin: const EdgeInsets.only(right: 10),
                               child: Text(
                                   " ${snapshot.data!["ranks"].length} تقييم",
                                   textDirection: TextDirection.rtl),
-                              margin: EdgeInsets.only(right: 10),
                             ),
                             Container(
-                              child: Text(
+                              margin: const EdgeInsets.only(right: 10),
+                              child: const Text(
                                 "|",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              margin: EdgeInsets.only(right: 10),
                             ),
                             Container(
+                              margin: const EdgeInsets.only(right: 10),
                               child: Row(
                                 children: [
-                                  Text("${moy}"),
-                                  Icon(
+                                  Text("$moy"),
+                                  const Icon(
                                     Icons.star,
                                     color: Colors.orange,
                                   )
                                 ],
                               ),
-                              margin: EdgeInsets.only(right: 10),
                             ),
                             Container(
                               child: Text(
                                 "${snapshot.data!["name"]}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -196,20 +196,22 @@ class details_handman extends StatelessWidget {
                   ),
                 ),
                 Container(
+                  width: MediaQuery.of(context).size.width * 90 / 100,
+                  margin: const EdgeInsets.only(top: 12),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(""),
+                      const Text(""),
                       Row(
                         children: [
                           Container(
+                            margin: const EdgeInsets.only(right: 20),
                             child: Text(
                               "${snapshot.data!["adresse"]}",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            margin: EdgeInsets.only(right: 20),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.location_on,
                             size: 50,
                             color: Colors.blue,
@@ -218,22 +220,22 @@ class details_handman extends StatelessWidget {
                       )
                     ],
                   ),
-                  width: MediaQuery.of(context).size.width * 90 / 100,
-                  margin: EdgeInsets.only(top: 12),
                 ),
                 Container(
+                  width: MediaQuery.of(context).size.width * 90 / 100,
+                  margin: const EdgeInsets.only(top: 12),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(""),
+                      const Text(""),
                       Row(
                         children: [
                           Container(
+                            margin: const EdgeInsets.only(right: 20),
                             child: Text("${snapshot.data!["phone"]}",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            margin: EdgeInsets.only(right: 20),
+                                style: const TextStyle(fontWeight: FontWeight.bold)),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.phone_enabled,
                             size: 40,
                             color: Colors.blue,
@@ -242,77 +244,75 @@ class details_handman extends StatelessWidget {
                       )
                     ],
                   ),
-                  width: MediaQuery.of(context).size.width * 90 / 100,
-                  margin: EdgeInsets.only(top: 12),
                 ),
                 Container(
+                  width: MediaQuery.of(context).size.width * 90 / 100,
+                  margin: const EdgeInsets.only(top: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(""),
+                      const Text(""),
                       Row(
                         children: [
                           Container(
+                            margin: const EdgeInsets.only(right: 20),
                             child: Text(
                               "${snapshot.data!["price"]} ج م للمعاينة",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                               textDirection: TextDirection.rtl,
                             ),
-                            margin: EdgeInsets.only(right: 20),
                           ),
                         ],
                       )
                     ],
                   ),
-                  width: MediaQuery.of(context).size.width * 90 / 100,
-                  margin: EdgeInsets.only(top: 15),
                 ),
                 Container(
+                  width: MediaQuery.of(context).size.width * 90 / 100,
+                  margin: const EdgeInsets.only(top: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
                           Container(
+                            margin: const EdgeInsets.only(right: 1),
                             child: IconButton(
-                              icon: Icon(Icons.arrow_back),
+                              icon: const Icon(Icons.arrow_back),
                               onPressed: () {},
                             ),
-                            margin: EdgeInsets.only(right: 1),
                           ),
-                          Text("عرض الكل")
+                          const Text("عرض الكل")
                         ],
                       ),
                       Row(
                         children: [
                           Container(
-                            child: Text(
+                            margin: const EdgeInsets.only(right: 20),
+                            child: const Text(
                               "التقييم و المراجعات",
                               style: TextStyle(fontWeight: FontWeight.bold),
                               textDirection: TextDirection.rtl,
                             ),
-                            margin: EdgeInsets.only(right: 20),
                           ),
                         ],
                       )
                     ],
                   ),
-                  width: MediaQuery.of(context).size.width * 90 / 100,
-                  margin: EdgeInsets.only(top: 15),
                 ),
                 if (snapshot.data!["ranks"].length == 0)
-                  Center(
+                  const Center(
                     child: Text("No Reviews *"),
                   )
                 else
                   for (int i = 0; i < snapshot.data!["ranks"].length; i++)
                     Container(
-                      margin: EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
                       width: MediaQuery.of(context).size.width * 90 / 100,
                       height: 100,
                       child: Row(
                         children: [
-                          Container(
+                          SizedBox(
                             width: MediaQuery.of(context).size.width * 90 / 100,
                             child: Column(
                               children: [
@@ -327,7 +327,7 @@ class details_handman extends StatelessWidget {
                                               BorderRadius.circular(10)),
                                       child: Row(
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.star,
                                             color: Colors.orange,
                                           ),
@@ -340,26 +340,27 @@ class details_handman extends StatelessWidget {
                                       child: Row(
                                         children: [
                                           Container(
+                                            margin: const EdgeInsets.only(right: 5),
                                             child: StreamBuilder<
                                                     DocumentSnapshot>(
                                                 builder: (context, snapshot) {
                                                   if (snapshot
                                                           .connectionState ==
                                                       ConnectionState.waiting) {
-                                                    return Text("");
+                                                    return const Text("");
                                                   }
                                                   if (snapshot.hasError) {
-                                                    return Text("error");
+                                                    return const Text("error");
                                                   }
                                                   if (snapshot.hasData ==
                                                           false ||
                                                       snapshot.data!.exists ==
                                                           false) {
-                                                    return Text("No User");
+                                                    return const Text("No User");
                                                   }
                                                   return Text(
                                                     "${snapshot.data!["name"]}",
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   );
@@ -370,10 +371,9 @@ class details_handman extends StatelessWidget {
                                                     .doc(snapshot.data!["ranks"]
                                                         [i]["owner"])
                                                     .snapshots()),
-                                            margin: EdgeInsets.only(right: 5),
                                           ),
                                           Container(
-                                            child: CircleAvatar(
+                                            child: const CircleAvatar(
                                               backgroundImage: AssetImage(
                                                   'assets/images/11.png'),
                                               radius: 30,
@@ -385,22 +385,22 @@ class details_handman extends StatelessWidget {
                                   ],
                                 ),
                                 Container(
+                                  margin: const EdgeInsets.only(top: 10, right: 15),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(""),
+                                      const Text(""),
                                       snapshot.data!["ranks"][i]["comment"] ==
                                               ""
-                                          ? Text("No Comment")
+                                          ? const Text("No Comment")
                                           : Text(
                                               "${snapshot.data!["ranks"][i]["comment"]}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             )
                                     ],
                                   ),
-                                  margin: EdgeInsets.only(top: 10, right: 15),
                                 )
                               ],
                             ),
@@ -421,21 +421,21 @@ class details_handman extends StatelessWidget {
                 onPressed: () async {
                   QuerySnapshot qs = await FirebaseFirestore.instance
                       .collection("discussions")
-                      .where("receiver", isEqualTo: this.data)
+                      .where("receiver", isEqualTo: data)
                       .where("owner",isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                       .get();
                   if (qs.docs.isNotEmpty) {
-                    Get.to(ChatScreen(id: qs.docs.first.id,type:this.type));
+                    Get.to(ChatScreen(id: qs.docs.first.id,type:type));
                   } else {
                     DocumentReference doc = await FirebaseFirestore.instance
                         .collection("discussions")
                         .add({
                       "owner": FirebaseAuth.instance.currentUser!.uid,
-                      "receiver": this.data,
+                      "receiver": data,
                       "messages": []
                     });
                     print("not exist");
-                    Get.to(ChatScreen(id: doc.id,type: this.type,));
+                    Get.to(ChatScreen(id: doc.id,type: type,));
                   }
                 },
                 text: "تواصل معي",
@@ -447,7 +447,7 @@ class details_handman extends StatelessWidget {
                 onPressed: () async {
                   QuerySnapshot qs = await FirebaseFirestore.instance
                       .collection("reserves")
-                      .where("receiver", isEqualTo: this.data)
+                      .where("receiver", isEqualTo: data)
                       .where("owner",
                           isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                       .where("type", isEqualTo: "forward")
@@ -460,7 +460,7 @@ class details_handman extends StatelessWidget {
                         .collection("reserves")
                         .add({
                       "owner": FirebaseAuth.instance.currentUser!.uid,
-                      "receiver": this.data,
+                      "receiver": data,
                       "type": "forward"
                     });
                     Get.snackbar("Notification", "تم الحجز بنجاح",

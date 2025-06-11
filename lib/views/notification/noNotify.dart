@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/assets.dart';
-import 'package:khedma_tech/core/constent.dart';
+import '../../core/assets.dart';
+import '../../core/constent.dart';
 
 import '../widget/customAppService.dart';
 
@@ -21,10 +21,10 @@ class NoNotify extends StatelessWidget {
                   txxt: 'الاشعارات',
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 230,
               ),
-              Text(
+              const Text(
                 'لا يوجد لديك اشعارات',
                 style: txtstyle4,
               ),

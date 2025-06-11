@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constent.dart';
 import '../../widget/customAppService.dart';
-import 'Customcustomsammry.dart';
 
 class AllRecommend extends StatelessWidget {
   const AllRecommend({super.key});
@@ -36,30 +35,31 @@ class AllRecommend extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState ==
                         ConnectionState.waiting) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
                     if (snapshot.hasError) {
-                      return Text("Error");
+                      return const Text("Error");
                     }
                     if (snapshot.hasData == false ||
                         snapshot.data!.exists == false) {
-                      return Text("No user");
+                      return const Text("No user");
                     }
 
                     List ranks = snapshot.data!["ranks"];
                     print("<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>");
 
-                    if (ranks.isEmpty)
-                      return Container(
+                    if (ranks.isEmpty) {
+                      return SizedBox(
                         height:
                         MediaQuery.of(context).size.height * 20 / 100,
-                        child: Center(
+                        child: const Center(
                           child: Text("لا يوجد تقييمات"),
                         ),
                       );
-                    return Container(
+                    }
+                    return SizedBox(
                       height:
                       MediaQuery.of(context).size.height * 60 / 100,
                       child: ListView.builder(
@@ -91,28 +91,28 @@ class AllRecommend extends StatelessWidget {
                                       builder: (context, snapshot) {
                                         if (snapshot.connectionState ==
                                             ConnectionState.waiting) {
-                                          return Center(
+                                          return const Center(
                                             child:
                                             CircularProgressIndicator(),
                                           );
                                         }
                                         if (snapshot.hasError) {
-                                          return Text("Error");
+                                          return const Text("Error");
                                         }
                                         if (snapshot.hasData == false ||
                                             snapshot.data!.exists ==
                                                 false) {
-                                          return Text("No user");
+                                          return const Text("No user");
                                         }
 
-                                        return Container(child: Column(
+                                        return SizedBox(width: MediaQuery.of(context).size.width*40/100,child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
 
                                           children: [
-                                            Text(snapshot.data!["name"],style: TextStyle(fontWeight: FontWeight.bold),),
+                                            Text(snapshot.data!["name"],style: const TextStyle(fontWeight: FontWeight.bold),),
                                             Text(ranks[index]["comment"],overflow: TextOverflow.ellipsis,maxLines: 2,)
                                           ],
-                                        ),width: MediaQuery.of(context).size.width*40/100,);
+                                        ),);
                                       },
                                     ),
                                     const Spacer(),
@@ -137,7 +137,7 @@ class AllRecommend extends StatelessWidget {
                                               //  widget.RatingNames[index],
                                               style: txtstyle1,
                                             ),
-                                            Icon(
+                                            const Icon(
                                               Icons.star,
                                               color: Colors.amber,
                                             ),

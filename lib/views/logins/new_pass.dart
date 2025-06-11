@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/widget/customAppbar.dart';
-import 'package:khedma_tech/views/widget/customTxtFild.dart';
+import '../widget/customAppbar.dart';
+import '../widget/customTxtFild.dart';
 
 import '../../core/assets.dart';
 import '../../core/constent.dart';

@@ -4,10 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:khedma_tech/views/booking/widget/custombotombokking.dart';
-import 'package:khedma_tech/views/contactus/contactus.dart';
-import 'package:khedma_tech/views/contactus/privecy.dart';
-import 'package:khedma_tech/views/profile/editprofile.dart';
+import '../booking/widget/custombotombokking.dart';
+import '../contactus/contactus.dart';
+import '../contactus/privecy.dart';
+import 'editprofile.dart';
 import '../../core/constent.dart';
 import '../RecommendedFavourites/Favourites.dart';
 import 'widget/customappprofile.dart';
@@ -16,7 +16,7 @@ import 'widget/customexit.dart';
 
 class Profile extends StatefulWidget {
   String? uid;
-   Profile(String? this.uid,  {super.key});
+   Profile(this.uid,  {super.key});
 
 
 
@@ -26,11 +26,8 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   String? uid;
-  _ProfileState(String? this.uid)
-  {
-
-  }
-
+  _ProfileState(this.uid)
+;
 
   @override
   void initState() {
@@ -54,11 +51,11 @@ class _ProfileState extends State<Profile> {
               stream: FirebaseFirestore.instance.collection(uid!).doc(FirebaseAuth.instance.currentUser!.uid).snapshots(),
               builder:(context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator(),);
+                  return const Center(child: CircularProgressIndicator(),);
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else if (!snapshot.hasData || !snapshot.data!.exists) {
-                  return Text('Document does not exist');
+                  return const Text('Document does not exist');
                 } else {
                   // The document exists and we have data
                   var documentData = snapshot.data!.data();
@@ -80,7 +77,7 @@ class _ProfileState extends State<Profile> {
                             ),
                              Text(
                               "${documentData["email"]}",
-                              style: TextStyle(color: background),
+                              style: const TextStyle(color: background),
                             ),
                             const SizedBox(
                               height: 16,
@@ -92,7 +89,7 @@ class _ProfileState extends State<Profile> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => EditProfile( this.uid ,),
+                                    builder: (context) => EditProfile( uid ,),
                                   ),
                                 );
                               },
@@ -102,7 +99,7 @@ class _ProfileState extends State<Profile> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>  Favourites(),
+                                    builder: (context) =>  const Favourites(),
                                   ),
                                 );
                               },
@@ -124,7 +121,7 @@ class _ProfileState extends State<Profile> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>  ContactUs(this.uid),
+                                    builder: (context) =>  ContactUs(uid),
                                   ),
                                 );
                               },

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/on_boarding.dart';
+import 'on_boarding.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});

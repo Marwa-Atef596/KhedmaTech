@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/core/assets.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/logins/sign_handMan.dart';
-import 'package:khedma_tech/views/logins/sign_user.dart';
-import 'package:khedma_tech/views/logins/widget/custom_btn_log.dart';
+import '../../core/assets.dart';
+import '../../core/constent.dart';
+import 'sign_handMan.dart';
+import 'sign_user.dart';
+import 'widget/custom_btn_log.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -32,12 +32,11 @@ class Login extends StatelessWidget {
               height: 75,
             ),
             CustomBtnLog(
+              Txtcolor: Colors.white,
               backgroundColor: kcolor1,
               title: 'حرفى؟',
               onPressed: () {
-
-
-                Get.to(SignHandMan());
+                Get.to(const SignHandMan());
               },
             ),
             const SizedBox(
@@ -49,8 +48,6 @@ class Login extends StatelessWidget {
               backgroundColor: const Color(0xffFAFAFA),
               title: 'مستخدم؟',
               onPressed: () {
-
-
                 Get.to(SignUser());
               },
             ),

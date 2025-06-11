@@ -3,18 +3,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/views/booking/widget/button1.dart';
-import 'package:khedma_tech/views/booking/widget/button2.dart';
+import 'widget/button1.dart';
 import '../../core/constent.dart';
 import '../chat/chat_screen.dart';
 import '../logins/widget/custom_btn_log.dart';
-import 'widget/CustomRowBokking.dart';
-import 'widget/Customtextrow2.dart';
 import 'widget/customVisibleContainer.dart';
-import 'widget/custombotombokking.dart';
+
 
 class FarwardBooking2 extends StatefulWidget {
-  FarwardBooking2({super.key}) {}
+  const FarwardBooking2({super.key});
 
   @override
   _FarwardBooking2State createState() => _FarwardBooking2State();
@@ -59,7 +56,7 @@ class _FarwardBooking2State extends State<FarwardBooking2> with AutomaticKeepAli
 
   @override
   Widget build(BuildContext context) {
-    print("build>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${this.type}");
+    print("build>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$type");
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -71,7 +68,7 @@ class _FarwardBooking2State extends State<FarwardBooking2> with AutomaticKeepAli
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
 
             if (snapshot.hasError) {
@@ -81,7 +78,7 @@ class _FarwardBooking2State extends State<FarwardBooking2> with AutomaticKeepAli
             if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
               print("==================================forward");
               print(snapshot.data!.docs);
-              return Center(child: Text('No reserves found'));
+              return const Center(child: Text('No reserves found'));
             }
             List<DocumentSnapshot> completed = snapshot.data!.docs;
 
@@ -149,7 +146,7 @@ class _FarwardBooking2State extends State<FarwardBooking2> with AutomaticKeepAli
                               ),
                               Row(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 50,
                                   ),
                                   StreamBuilder<DocumentSnapshot>(
@@ -160,7 +157,7 @@ class _FarwardBooking2State extends State<FarwardBooking2> with AutomaticKeepAli
                                       builder: (context, snapshot) {
                                         if (snapshot.connectionState ==
                                             ConnectionState.waiting) {
-                                          return Center(
+                                          return const Center(
                                               child:
                                                   CircularProgressIndicator());
                                         }
@@ -173,7 +170,7 @@ class _FarwardBooking2State extends State<FarwardBooking2> with AutomaticKeepAli
 
                                         if (!snapshot.hasData ||
                                             !snapshot.data!.exists) {
-                                          return Center(
+                                          return const Center(
                                               child: Text(
                                                   'No user information found'));
                                         }
@@ -183,7 +180,7 @@ class _FarwardBooking2State extends State<FarwardBooking2> with AutomaticKeepAli
 
                                         return Column(
                                           children: [
-                                            Text("${userData["work"]}",style: TextStyle(fontWeight: FontWeight.bold),),
+                                            Text("${userData["work"]}",style: const TextStyle(fontWeight: FontWeight.bold),),
                                             Text('${userData["name"]}'),
                                             CustomButton1Booking(
                                               backgroundColor: Colors.blue,
@@ -238,21 +235,21 @@ class _FarwardBooking2State extends State<FarwardBooking2> with AutomaticKeepAli
                                           .snapshots(),
                                       builder: (context, snapshot) {
                                         if (snapshot.hasError) {
-                                          return Center(
+                                          return const Center(
                                             child: Text('Something went wrong'),
                                           );
                                         }
 
                                         if (snapshot.connectionState ==
                                             ConnectionState.waiting) {
-                                          return Center(
+                                          return const Center(
                                             child: CircularProgressIndicator(),
                                           );
                                         }
 
                                         if (!snapshot.hasData ||
                                             !snapshot.data!.exists) {
-                                          return Center(
+                                          return const Center(
                                             child: Text(
                                                 'No data found for this user'),
                                           );
@@ -268,14 +265,14 @@ class _FarwardBooking2State extends State<FarwardBooking2> with AutomaticKeepAli
                                           mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Text("العنوان"),
+                                            const Text("العنوان"),
                                             Text(data["adresse"])
                                           ],
                                         ),Row(
                                           mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Text("السعر"),
+                                            const Text("السعر"),
                                             Text(data["price"])
                                           ],
                                         )],);
@@ -300,9 +297,9 @@ class _FarwardBooking2State extends State<FarwardBooking2> with AutomaticKeepAli
                                                   mainAxisSize: MainAxisSize.min,
                                                   crossAxisAlignment: CrossAxisAlignment.center,
                                                   children: [
-                                                    Align(
+                                                    const Align(
                                                       child: Text(
-                                                        "إالغاء الحجز"!,
+                                                        "إالغاء الحجز",
                                                         style: txtstyle222,
                                                       ),
                                                     ),
@@ -319,8 +316,8 @@ class _FarwardBooking2State extends State<FarwardBooking2> with AutomaticKeepAli
                                                     const SizedBox(
                                                       height: 50,
                                                     ),
-                                                    Text(
-                                                      "هل أنت متأكد من الغاء الحجز"!,
+                                                    const Text(
+                                                      "هل أنت متأكد من الغاء الحجز",
                                                       style: txtstyle6,
                                                     ),
                                                     const SizedBox(
@@ -375,7 +372,7 @@ class _FarwardBooking2State extends State<FarwardBooking2> with AutomaticKeepAli
                                               )),
                                           isScrollControlled: true,
                                           backgroundColor: Colors.white,
-                                          shape: RoundedRectangleBorder(
+                                          shape: const RoundedRectangleBorder(
                                             borderRadius: BorderRadius.vertical(
                                               top: Radius.circular(25.0),
                                             ),

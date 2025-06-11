@@ -1,21 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/assets.dart';
-import 'package:khedma_tech/core/reusable/text_style_helper.dart';
 
 class ChatItem extends StatelessWidget {
   ChatItem({super.key, this.doc, this.type}) {
     print("////////////////////////////////////////////");
-    print(this.doc!["owner"]);
-    print(this.type);
+    print(doc!["owner"]);
+    print(type);
   }
   DocumentSnapshot? doc;
   String? type;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width * 80 / 100,
       height: MediaQuery.of(context).size.height * 10 / 100,
       child: Row(
@@ -24,15 +21,15 @@ class ChatItem extends StatelessWidget {
           CircleAvatar(
             backgroundColor: Colors.blue[900],
             child: Text(
-              "${this.doc!["messages"].length}",
-              style: TextStyle(color: Colors.white),
+              "${doc!["messages"].length}",
+              style: const TextStyle(color: Colors.white),
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                margin: EdgeInsets.only(right: 5),
+                margin: const EdgeInsets.only(right: 5),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -40,30 +37,30 @@ class ChatItem extends StatelessWidget {
                     StreamBuilder<DocumentSnapshot>(
                       stream: FirebaseFirestore.instance
                           .collection(
-                              this.type == "users" ? "handman" : "users")
-                          .doc(this.type == "users"
-                              ? this.doc!["receiver"]
-                              : this.doc!["owner"])
+                              type == "users" ? "handman" : "users")
+                          .doc(type == "users"
+                              ? doc!["receiver"]
+                              : doc!["owner"])
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Text("");
+                          return const Text("");
                         }
                         if (snapshot.hasError) {
-                          return Text("Error");
+                          return const Text("Error");
                         }
                         if (snapshot.hasData == false ||
                             !snapshot.data!.exists) {
                           return StreamBuilder<DocumentSnapshot>(
                               stream: FirebaseFirestore.instance
                                   .collection("handman")
-                                  .doc(this.doc!["receiver"])
+                                  .doc(doc!["receiver"])
                                   .snapshots(),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Center(
+                                  return const Center(
                                       child: CircularProgressIndicator());
                                 }
 
@@ -74,30 +71,30 @@ class ChatItem extends StatelessWidget {
 
                                 if (!snapshot.hasData ||
                                     !snapshot.data!.exists) {
-                                  return Center(
+                                  return const Center(
                                       child: Text('No user information found'));
                                 }
                                 var userData = snapshot.data!.data()
                                     as Map<String, dynamic>;
 
-                                return Text("${userData["name"]}",style: TextStyle(fontWeight: FontWeight.bold),);
+                                return Text("${userData["name"]}",style: const TextStyle(fontWeight: FontWeight.bold),);
                               });
-                          return Text("NOT EXISTING");
+                          return const Text("NOT EXISTING");
                         }
                         return Text(
                           "${snapshot.data!["name"]}",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         );
                       },
                     ),
-                    this.doc!["messages"].length == 0
-                        ? Text("لا يوجد رسايل")
-                        : Text(this.doc!["messages"]
-                            [this.doc!["messages"].length - 1]["content"])
+                    doc!["messages"].length == 0
+                        ? const Text("لا يوجد رسايل")
+                        : Text(doc!["messages"]
+                            [doc!["messages"].length - 1]["content"])
                   ],
                 ),
               ),
-              CircleAvatar(
+              const CircleAvatar(
                 backgroundImage: AssetImage('assets/images/11.png'),
                 radius: 30,
               )

@@ -1,17 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/views/Rate%20&%20Review/Rate%20&%20Review.dart';
-import 'package:khedma_tech/views/details_handman.dart';
+import '../details_handman.dart';
 
 import '../../core/constent.dart';
 import '../chat/chat_screen.dart';
 
 class HandMan extends StatelessWidget {
   String? data;
-  HandMan(String? this.data);
+  HandMan(this.data, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +21,9 @@ class HandMan extends StatelessWidget {
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .get();
         if (doc.exists) {
-          Get.to(details_handman(this.data,"handman"));
+          Get.to(details_handman(data,"handman"));
         } else {
-          Get.to(details_handman(this.data,"users"));
+          Get.to(details_handman(data,"users"));
         }
 
       },
@@ -58,18 +56,18 @@ class HandMan extends StatelessWidget {
                             builder: (context, snapshot) {
                               if(snapshot.connectionState==ConnectionState.waiting)
                                 {
-                                  return Text("");
+                                  return const Text("");
                                 }
                               if(snapshot.hasError)
                                 {
-                                  return Text("error");
+                                  return const Text("error");
                                 }
 
                               if(snapshot.hasData==false || snapshot.data!.exists==false)
                               {
 
 
-                                 return Text("");
+                                 return const Text("");
                                 }
                               return IconButton(
                                 onPressed: () async {
@@ -86,15 +84,15 @@ class HandMan extends StatelessWidget {
                                   }
                                   DocumentSnapshot dc = await FirebaseFirestore.instance.collection(type=="users"?"users":"handman").doc(FirebaseAuth.instance.currentUser!.uid).get();
                                   List fav = dc["favorites"];
-                                  if (fav.contains(this.data)) {
-                                    fav.remove(this.data);
+                                  if (fav.contains(data)) {
+                                    fav.remove(data);
                                   } else {
-                                    fav.add(this.data);
+                                    fav.add(data);
                                   }
                                   await FirebaseFirestore.instance.collection(type=="users"?"users":"handman").doc(FirebaseAuth.instance.currentUser!.uid).update({
                                     "favorites": fav
                                   });
-                                  if (fav.contains(this.data)) {
+                                  if (fav.contains(data)) {
                                     Get.snackbar("Notification", "تمت الاضافة ");
                                   } else {
                                     Get.snackbar("Notification", "تمت الازالة");
@@ -124,7 +122,7 @@ class HandMan extends StatelessWidget {
                               QuerySnapshot qs = await FirebaseFirestore
                                   .instance
                                   .collection("discussions")
-                                  .where("receiver", isEqualTo: this.data)
+                                  .where("receiver", isEqualTo: data)
                                   .where("owner",isEqualTo: FirebaseAuth.instance.currentUser!.uid )
                                   .get();
                               if (qs.docs.isNotEmpty) {
@@ -136,7 +134,7 @@ class HandMan extends StatelessWidget {
                                     .add({
                                   "owner":
                                   FirebaseAuth.instance.currentUser!.uid,
-                                  "receiver": this.data,
+                                  "receiver": data,
                                   "messages": []
                                 });
                                 print("not exist");
@@ -158,14 +156,14 @@ class HandMan extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Center(
+                          return const Center(
                             child: CircularProgressIndicator(),
                           );
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
                         } else if (!snapshot.hasData ||
                             !snapshot.data!.exists) {
-                          return Text('Document does not exist');
+                          return const Text('Document does not exist');
                         } else {
                           return Column(
                             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -177,7 +175,7 @@ class HandMan extends StatelessWidget {
                               Text("${snapshot.data!.data()!["name"]}"),
                               Text(
                                   "ج م ${snapshot.data!.data()!["price"]} للمعاينة "),
-                              customtxtrate(this.data!)
+                              customtxtrate(data!)
                             ],
                           );
                         }
@@ -225,13 +223,13 @@ class customtxtrate extends StatelessWidget {
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
               if (snapshot.hasError) {
-                return Text("Erorr");
+                return const Text("Erorr");
               }
               if (!snapshot.hasData || snapshot.data!.exists == false) {
-                return Text("No user");
+                return const Text("No user");
               }
               List ranks = snapshot.data!["ranks"];
 
@@ -254,24 +252,24 @@ class customtxtrate extends StatelessWidget {
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                   if (snapshot.hasError) {
-                    return Text("Erorr");
+                    return const Text("Erorr");
                   }
                   if (!snapshot.hasData || snapshot.data!.exists == false) {
-                    return Text("No user");
+                    return const Text("No user");
                   }
                   List ranks = snapshot.data!["ranks"];
-                  if (ranks.length == 0)
-                    return Text('0');
-                  else {
+                  if (ranks.isEmpty) {
+                    return const Text('0');
+                  } else {
                     num moy = 0;
-                    ranks.forEach((element) {
+                    for (var element in ranks) {
                       moy = moy + element["value"];
-                    });
+                    }
                     moy = moy / ranks.length;
-                    return Text("${moy}");
+                    return Text("$moy");
                   }
                 },
               ),

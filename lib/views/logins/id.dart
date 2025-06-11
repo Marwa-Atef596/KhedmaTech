@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/logins/verfication.dart';
-import 'package:khedma_tech/views/logins/widget/show_dialog.dart';
-import 'package:khedma_tech/views/widget/customTxtFild.dart';
-import 'package:khedma_tech/views/logins/work.dart';
+import '../../core/constent.dart';
+import '../widget/customTxtFild.dart';
+import 'work.dart';
 import '../../core/assets.dart';
 import 'widget/custom_btn_log.dart';
 
@@ -67,7 +64,7 @@ class IdNum extends StatelessWidget {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Image(
+                      child: const Image(
                         image: AssetImage(AssetsData.icon),
                         height: 60,
                       ),
@@ -129,7 +126,7 @@ class IdNum extends StatelessWidget {
             email!,
             name!,
             phone!,
-            this.useremail!,
+            useremail!,
             password!,
             _nationalIdController.text.trim()));
 
@@ -254,7 +251,7 @@ class IdNum extends StatelessWidget {
     print(name);
     FirebaseFirestore.instance.collection("users").doc(id).set({
       "name":name,
-      "phone":"+20"+phone!,
+      "phone":"+20${phone!}",
       "email":useremail,
       "password":password,
       "national_id":nid,

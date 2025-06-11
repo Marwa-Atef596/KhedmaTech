@@ -1,8 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/logins/log.dart';
 import 'package:khedma_tech/views/logins/login.dart';
+
 import '../../../core/constent.dart';
 import 'custom_btn_log.dart';
 
@@ -57,7 +57,7 @@ class ShowDialogg extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>  Login(),
+                      builder: (context) =>  const Login(),
                     ),
                   );
                 },

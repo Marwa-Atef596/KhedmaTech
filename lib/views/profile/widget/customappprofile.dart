@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../core/constent.dart';
 import '../editprofile.dart';
 import 'customCurveClipper.dart';
@@ -6,7 +7,7 @@ import 'customaddprofile.dart';
 
 class customappprofile extends StatelessWidget {
   String? type;
-   customappprofile(String? this.type, {
+   customappprofile(this.type, {
     super.key,
   });
 
@@ -47,7 +48,7 @@ class customappprofile extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => EditProfile(this.type),
+                              builder: (context) => EditProfile(type),
                             ),
                           );
                         },

@@ -1,18 +1,11 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/views/booking/widget/button2.dart';
-import 'package:khedma_tech/views/dashboard/home_handman.dart';
-import 'package:khedma_tech/views/home_page.dart';
-import 'package:khedma_tech/views/logins/sign_handMan.dart';
-import 'package:khedma_tech/views/logins/verfication.dart';
-import 'package:khedma_tech/views/logins/widget/show_dialog.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../dashboard/home_handman.dart';
+import '../home_page.dart';
+import 'sign_handMan.dart';
+import 'verfication.dart';
 import '../../core/constent.dart';
 import '../widget/customTxtFild.dart';
 import 'create_pass.dart';
@@ -21,8 +14,8 @@ import '../widget/custom_contianer.dart';
 import '../widget/custom_txt_logs.dart';
 
 class Log extends StatelessWidget {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   Log({super.key});
   final _formKey = GlobalKey<FormState>();
   @override
@@ -56,7 +49,7 @@ class Log extends StatelessWidget {
                         final emailRegex = RegExp(
                             r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
 
-                        if (value!.isEmpty || value.length == 0) {
+                        if (value!.isEmpty || value.isEmpty) {
                           return 'الرجاء ادخال ايمايل او رقم هاتف';
                         }
                         if (emailRegex.hasMatch(value) == false &&
@@ -71,7 +64,7 @@ class Log extends StatelessWidget {
                     CustomTxtFild(
                       controller: _passwordController,
                       validator: (value) {
-                        if (value!.isEmpty || value.length == 0) {
+                        if (value!.isEmpty || value.isEmpty) {
                           return 'الرجاء ادخال كلمة سر';
                         }
 
@@ -92,8 +85,8 @@ class Log extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Password(
-                                          this._emailController.text)));
+                                      builder: (context) =>
+                                          Password(_emailController.text)));
                             },
                             child: const Text(
                               'هل نسيت كلمه السر؟',
@@ -108,6 +101,7 @@ class Log extends StatelessWidget {
                       height: 30,
                     ),
                     CustomBtnLog(
+                      Txtcolor: Colors.white,
                       title: 'الدخول',
                       backgroundColor: kcolor1,
                       onPressed: () async {
@@ -121,25 +115,26 @@ class Log extends StatelessWidget {
                           showDialog(
                               context: context,
                               builder: (context) {
-                                return AlertDialog(
+                                return const AlertDialog(
                                   title: Center(
                                     child: Text("جار تسجيل الدخول "),
                                   ),
-                                  content: Container(
+                                  content: SizedBox(
                                     height: 20,
                                     width: 20,
                                     child: Center(
-                                      child: Container(
-                                        child: CircularProgressIndicator(),
+                                      child: SizedBox(
                                         width: 20,
                                         height: 20,
+                                        child: CircularProgressIndicator(),
                                       ),
                                     ),
                                   ),
                                 );
                               });
 
-                          await Future.delayed(Duration(seconds: 3), () async {
+                          await Future.delayed(const Duration(seconds: 3),
+                              () async {
                             try {
                               if (emailRegex.hasMatch(_emailController.text)) {
                                 UserCredential userCredential =
@@ -171,7 +166,7 @@ class Log extends StatelessWidget {
                                             isEqualTo: _passwordController.text)
                                         .where("phone",
                                             isEqualTo:
-                                                "+20" + _emailController.text)
+                                                "+20${_emailController.text}")
                                         .get();
 
                                 if (q.docs.isEmpty) {
@@ -183,24 +178,24 @@ class Log extends StatelessWidget {
                                                   _passwordController.text)
                                           .where("phone",
                                               isEqualTo:
-                                                  "+20" + _emailController.text)
+                                                  "+20${_emailController.text}")
                                           .get();
                                   print("*****************2");
                                   print(q2.docs.isEmpty);
-                                  print("+20" + _emailController.text);
+                                  print("+20${_emailController.text}");
                                   print(_passwordController.text);
                                   if (q2.docs.isEmpty) {
                                     showDialog(
                                         context: context,
                                         builder: (context) {
                                           return AlertDialog(
-                                            title: Text("Error "),
-                                            content: Container(
+                                            title: const Text("Error "),
+                                            content: SizedBox(
                                               height: 20,
                                               width: 20,
                                               child: Center(
                                                 child: Container(
-                                                  child: Text(
+                                                  child: const Text(
                                                       "Error in phone or password"),
                                                 ),
                                               ),
@@ -212,28 +207,28 @@ class Log extends StatelessWidget {
                                     showDialog(
                                         context: context,
                                         builder: (context) {
-                                          return AlertDialog(
+                                          return const AlertDialog(
                                             title: Text("جار الدخول"),
-                                            content: Container(
+                                            content: SizedBox(
                                               height: 20,
                                               width: 20,
                                               child: Center(
-                                                child: Container(
-                                                  child:
-                                                      CircularProgressIndicator(),
+                                                child: SizedBox(
                                                   width: 20,
                                                   height: 20,
+                                                  child:
+                                                      CircularProgressIndicator(),
                                                 ),
                                               ),
                                             ),
                                           );
                                         });
-                                    await Future.delayed(Duration(seconds: 3),
-                                        () async {
+                                    await Future.delayed(
+                                        const Duration(seconds: 3), () async {
                                       await FirebaseAuth.instance
                                           .verifyPhoneNumber(
                                         phoneNumber:
-                                            "+20" + _emailController.text,
+                                            "+20${_emailController.text}",
                                         timeout: const Duration(seconds: 60),
                                         verificationCompleted:
                                             (PhoneAuthCredential
@@ -256,7 +251,7 @@ class Log extends StatelessWidget {
                                               context: context,
                                               builder: (context) {
                                                 return AlertDialog(
-                                                  title: Text("Error"),
+                                                  title: const Text("Error"),
                                                   content: Text(
                                                       "${authException.message}"),
                                                 );
@@ -290,30 +285,28 @@ class Log extends StatelessWidget {
                                   showDialog(
                                       context: context,
                                       builder: (context) {
-                                        return AlertDialog(
+                                        return const AlertDialog(
                                           title: Text("جار الدخول"),
-                                          content: Container(
+                                          content: SizedBox(
                                             height: 20,
                                             width: 20,
                                             child: Center(
-                                              child: Container(
-                                                child:
-                                                    CircularProgressIndicator(),
+                                              child: SizedBox(
                                                 width: 20,
                                                 height: 20,
+                                                child:
+                                                    CircularProgressIndicator(),
                                               ),
                                             ),
                                           ),
                                         );
                                       });
-                                  await Future.delayed(Duration(seconds: 3),
-                                      () async {
-
-
-                                     await FirebaseAuth.instance
+                                  await Future.delayed(
+                                      const Duration(seconds: 3), () async {
+                                    await FirebaseAuth.instance
                                         .verifyPhoneNumber(
                                       phoneNumber:
-                                          "+20" + _emailController.text,
+                                          "+20${_emailController.text}",
                                       timeout: const Duration(seconds: 60),
                                       verificationCompleted:
                                           (PhoneAuthCredential
@@ -335,7 +328,7 @@ class Log extends StatelessWidget {
                                             context: context,
                                             builder: (context) {
                                               return AlertDialog(
-                                                title: Text("Error"),
+                                                title: const Text("Error"),
                                                 content: Text(
                                                     "${authException.message}"),
                                               );
@@ -345,20 +338,18 @@ class Log extends StatelessWidget {
                                       },
                                       codeSent: (String verificationId,
                                           int? forceResendingToken) {
-
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => Verfiy(
                                               name: null,
                                               phone:
-                                                  "+20" + _emailController.text,
+                                                  "+20${_emailController.text}",
                                               verification_id: verificationId,
                                               work: "handman",
                                             ),
                                           ),
                                         );
-
 
                                         // Store the verificationId for later use to verify the code
                                         // You can also use forceResendingToken to resend the code if needed
@@ -381,16 +372,18 @@ class Log extends StatelessWidget {
                                   context: context,
                                   builder: (context) {
                                     return AlertDialog(
-                                      title: Center(
+                                      title: const Center(
                                         child: Text("Error "),
                                       ),
-                                      content: Container(
+                                      content: SizedBox(
                                         height: 20,
                                         width: 20,
                                         child: Center(
                                           child: Container(
-                                            child: Text(
-                                                "${e.code == "invalid-credential" ? "Password or email incorrect" : ""}"),
+                                            child: Text(e.code ==
+                                                    "invalid-credential"
+                                                ? "Password or email incorrect"
+                                                : ""),
                                           ),
                                         ),
                                       ),

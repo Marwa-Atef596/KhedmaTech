@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/assets.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/logins/new_pass.dart';
-import 'package:khedma_tech/views/logins/verfication.dart';
-import 'package:khedma_tech/views/widget/customAppbar.dart';
-import 'package:khedma_tech/views/widget/customTxtFild.dart';
-import 'package:khedma_tech/views/logins/widget/custom_btn_log.dart';
+import '../../core/assets.dart';
+import '../../core/constent.dart';
+import '../widget/customAppbar.dart';
+import '../widget/customTxtFild.dart';
+import 'widget/custom_btn_log.dart';
 
 class Password extends StatelessWidget {
    Password(this. text, {super.key});
@@ -54,7 +52,7 @@ class Password extends StatelessWidget {
                   title: 'ارسل الكود',
                   backgroundColor: kcolor1,
                   onPressed: () {
-                    if(this.text.contains("+20"))
+                    if(text.contains("+20"))
                       {
 
                       }

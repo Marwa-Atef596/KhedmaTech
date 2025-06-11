@@ -33,7 +33,7 @@ class electricity extends StatelessWidget {
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     }
 
                     if (snapshot.hasError) {
@@ -41,12 +41,12 @@ class electricity extends StatelessWidget {
                     }
 
                     if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                      return Center(child: Text('No electrician found'));
+                      return const Center(child: Text('No electrician found'));
                     }
                     if (snapshot.data!.size == 1 &&
                         snapshot.data!.docs.first.id ==
                             FirebaseAuth.instance.currentUser!.uid) {
-                      return Text("No electrician found");
+                      return const Text("No electrician found");
                     }
 
                     return ListView.builder(
@@ -55,11 +55,11 @@ class electricity extends StatelessWidget {
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
-                          padding: EdgeInsets.only(bottom: 16),
+                          padding: const EdgeInsets.only(bottom: 16),
                           child: snapshot.data!.docs[index].id ==
                                   FirebaseAuth.instance.currentUser!.uid
                               ? HandMan(snapshot.data!.docs[index].id)
-                              : Text(""),
+                              : const Text(""),
                         );
                       },
                     );

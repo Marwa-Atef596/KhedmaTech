@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/notification/widget/customCon.dart';
+import 'widget/customCon.dart';
 
 import '../widget/customAppService.dart';
 
@@ -22,11 +22,11 @@ class Notifications extends StatelessWidget {
               ),
               ListView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: 4,
                 itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 10, top: 10),
+                  return const Padding(
+                    padding: EdgeInsets.only(bottom: 10, top: 10),
                     child: MyWidget(),
                   );
                 },

@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/chat/chat_screen.dart';
-import 'package:khedma_tech/views/chat/widgets/chat_item.dart';
+import '../chat_screen.dart';
+import 'chat_item.dart';
 
 import '../../../core/constent.dart';
 
 class ChatList extends StatefulWidget {
-  ChatList({super.key});
+  const ChatList({super.key});
 
   @override
   State<ChatList> createState() => _ChatListState();
@@ -50,7 +50,7 @@ class _ChatListState extends State<ChatList> {
             builder: (context, snapshot) {
 
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
 
               if (snapshot.hasError) {
@@ -68,7 +68,7 @@ class _ChatListState extends State<ChatList> {
                     builder: (context, snapshot) {
 
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
 
                       if (snapshot.hasError) {
@@ -76,14 +76,14 @@ class _ChatListState extends State<ChatList> {
                       }
 
                       if (!snapshot.hasData ) {
-                        return Center(child: Text('No discussions found'));
+                        return const Center(child: Text('No discussions found'));
                       }
                       List<DocumentSnapshot> owner2Docs = snapshot.data!.docs;
                       print("JUST OWNER");
                       print(owner2Docs);
                       if(owner2Docs.isEmpty)
                         {
-                          return Center(child: Text("لا يوجد دردشة"),);
+                          return const Center(child: Text("لا يوجد دردشة"),);
                         }
                       return Expanded(
                         child: ListView.builder(
@@ -122,7 +122,7 @@ class _ChatListState extends State<ChatList> {
                   builder: (context, snapshot) {
 
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     }
 
                     if (snapshot.hasError) {
@@ -130,7 +130,7 @@ class _ChatListState extends State<ChatList> {
                     }
 
                     if (!snapshot.hasData) {
-                      return Center(child: Text('No discussions found'));
+                      return const Center(child: Text('No discussions found'));
                     }
                     List<DocumentSnapshot> owner2Docs = snapshot.data!.docs;
                     

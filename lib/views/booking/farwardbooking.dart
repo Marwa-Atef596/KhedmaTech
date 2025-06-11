@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/logins/widget/custom_btn_log.dart';
+import '../../core/constent.dart';
+import '../logins/widget/custom_btn_log.dart';
 
 class FarwardBooking extends StatelessWidget {
   const FarwardBooking({super.key});

@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/logins/widget/show_dialog.dart';
+import 'show_dialog.dart';
 
 import '../../../core/assets.dart';
 import '../../../core/constent.dart';
@@ -21,12 +20,12 @@ class check_adress extends StatefulWidget {
 
   @override
   State<check_adress> createState() => _check_adressState(
-        this.name,
-        this.phone,
-        this.useremail,
-        this.password,
-        this.national_id,
-        this.work,
+        name,
+        phone,
+        useremail,
+        password,
+        national_id,
+        work,
       );
 }
 
@@ -44,10 +43,10 @@ class _check_adressState extends State<check_adress> {
     this.password,
     this.national_id,
     this.work,
-  ) {}
+  );
   List Suggestions=[];
-  TextEditingController price=new TextEditingController();
-  TextEditingController adresse=new TextEditingController();
+  TextEditingController price=TextEditingController();
+  TextEditingController adresse=TextEditingController();
 
   @override
   void initState() {
@@ -59,16 +58,17 @@ class _check_adressState extends State<check_adress> {
   Widget build(BuildContext context) {
     return Scaffold(resizeToAvoidBottomInset: false,body: Column(
       children: [
-        Container(child: Text("السعر"),margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*30/100),),
+        Container(margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*30/100),child: const Text("السعر"),),
 
-        Container(
+        SizedBox(
           height: MediaQuery.of(context).size.height * 10 / 100,
-          child: TextFormField(controller: price,),
           width: MediaQuery.of(context).size.width * 90 / 100,
+          child: TextFormField(controller: price,),
         ),
-        Text("العنوان"),
-        Container(
+        const Text("العنوان"),
+        SizedBox(
           height: MediaQuery.of(context).size.height * 10 / 100,
+          width: MediaQuery.of(context).size.width * 90 / 100,
           child: TextFormField(
             onChanged: (value) {
               setState(() {
@@ -77,7 +77,6 @@ class _check_adressState extends State<check_adress> {
             },
             controller: adresse,
           ),
-          width: MediaQuery.of(context).size.width * 90 / 100,
         ),
 
 
@@ -88,18 +87,20 @@ class _check_adressState extends State<check_adress> {
 
 
 
-           if(this.useremail!=null)  await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                email: this.useremail!, password: this.password!);
+           if(useremail!=null) {
+             await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                email: useremail!, password: password!);
+           }
             await FirebaseFirestore.instance
                 .collection('handman')
                 .doc(FirebaseAuth.instance.currentUser!.uid)
                 .set({
-              'name': this.name,
-              'email': this.useremail!=null?this.useremail:"",
-              'password': this.password,
-              "phone": this.phone,
-              'national_id': this.national_id,
-              'work': this.work,
+              'name': name,
+              'email': useremail ?? "",
+              'password': password,
+              "phone": phone,
+              'national_id': national_id,
+              'work': work,
               "price":price.text,
               "adresse":adresse.text,
               "ranks":[],

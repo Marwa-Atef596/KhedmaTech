@@ -1,13 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/logins/id.dart';
-import 'package:khedma_tech/views/logins/log.dart';
-import 'package:khedma_tech/views/logins/widget/custom_btn_log.dart';
+import '../../core/constent.dart';
+import 'id.dart';
+import 'log.dart';
+import 'widget/custom_btn_log.dart';
 import '../widget/customTxtFild.dart';
 import '../widget/custom_contianer.dart';
 import '../widget/custom_txt_logs.dart';
@@ -25,11 +23,12 @@ class SignHandMan extends StatefulWidget {
 
 class _SignHandManState extends State<SignHandMan> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   String _errorMessage = '';
   // bool _isButtonEnabled = true;
@@ -47,15 +46,14 @@ class _SignHandManState extends State<SignHandMan> {
       String email = _emailController.text.trim();
       String password = _passwordController.text;
       // widget.onSubmit(name, phone, email, password);
-      phone = "+20" + phone;
+      phone = "+20$phone";
       print(phone);
       try {
         if (email.isEmpty) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  IdNum(false, name, phone, email, password),
+              builder: (context) => IdNum(false, name, phone, email, password),
             ),
           );
         } else {
@@ -68,8 +66,7 @@ class _SignHandManState extends State<SignHandMan> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  IdNum(true, name, phone, email, password),
+              builder: (context) => IdNum(true, name, phone, email, password),
             ),
           );
         }
@@ -128,8 +125,8 @@ class _SignHandManState extends State<SignHandMan> {
                     ),
                     CustomTxtFild(
                       prefixIcon: Container(
-                        margin: EdgeInsets.only(top: 14, left: 10),
-                        child: Text(
+                        margin: const EdgeInsets.only(top: 14, left: 10),
+                        child: const Text(
                           "+20",
                           textDirection: TextDirection.ltr,
                           style: TextStyle(fontWeight: FontWeight.bold),
@@ -187,12 +184,13 @@ class _SignHandManState extends State<SignHandMan> {
                     if (_errorMessage.isNotEmpty)
                       Text(
                         _errorMessage,
-                        style: TextStyle(color: Colors.red),
+                        style: const TextStyle(color: Colors.red),
                       ),
                     const SizedBox(
                       height: 16,
                     ),
                     CustomBtnLog(
+                      Txtcolor: Colors.white,
                       title: 'التالى',
                       backgroundColor: kcolor1,
                       onPressed: () {
@@ -246,27 +244,30 @@ class _SignHandManState extends State<SignHandMan> {
     );
   }
 }
+
 Future<bool> Verify_existance_user(String phone) async {
   QuerySnapshot qs = await FirebaseFirestore.instance
       .collection("users")
-      .where("phone", isEqualTo: "+20"+phone)
+      .where("phone", isEqualTo: "+20$phone")
       .get();
   if (qs.docs.isNotEmpty) {
     return true;
   }
   QuerySnapshot qs2 = await FirebaseFirestore.instance
       .collection("handman")
-      .where("phone", isEqualTo: "+20"+phone)
+      .where("phone", isEqualTo: "+20$phone")
       .get();
   if (qs2.docs.isNotEmpty) {
     return true;
   }
   return false;
 }
-void go_to_id_num_whithout_email(String name, String phone, String email,
-    String password, BuildContext c) {
+
+void go_to_id_num_whithout_email(
+    String name, String phone, String email, String password, BuildContext c) {
   Get.off(IdNum(false, name, phone, email, password));
 }
+
 Future<bool> Verify_existance_email_user(String email) async {
   QuerySnapshot qs = await FirebaseFirestore.instance
       .collection("users")
@@ -284,36 +285,32 @@ Future<bool> Verify_existance_email_user(String email) async {
   }
   return false;
 }
-void go_to_id_num_whith_email(String name, String phone, String email,
-    String password, BuildContext c) {
 
+void go_to_id_num_whith_email(
+    String name, String phone, String email, String password, BuildContext c) {
   Get.off(IdNum(true, name, phone, email, password));
 }
+
 void Handle_Signin(String name, String phone, String email, String password,
-    BuildContext c)async {
+    BuildContext c) async {
   if (email.isEmpty) {
     if (await Verify_existance_user(phone) == false) {
       go_to_id_num_whithout_email(name, phone, email, password, c);
     } else {
-
-
-      Get.snackbar("Error","رقم هاتف مستعمل من قبل" ,backgroundColor: Colors.blue);
+      Get.snackbar("Error", "رقم هاتف مستعمل من قبل",
+          backgroundColor: Colors.blue);
     }
   } else {
     if (await Verify_existance_user(phone) == false) {
       if (await Verify_existance_email_user(email) == false) {
-
         go_to_id_num_whith_email(name, phone, email, password, c);
       } else {
-
-        Get.snackbar("Error","ايمايل مستعمل من قبل" ,backgroundColor: Colors.blue);
-
-
+        Get.snackbar("Error", "ايمايل مستعمل من قبل",
+            backgroundColor: Colors.blue);
       }
     } else {
-      Get.snackbar("Error","رقم هاتف مستعمل من قبل" ,backgroundColor: Colors.blue);
-
-
+      Get.snackbar("Error", "رقم هاتف مستعمل من قبل",
+          backgroundColor: Colors.blue);
     }
   }
 }

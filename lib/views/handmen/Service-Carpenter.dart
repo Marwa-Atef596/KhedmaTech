@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:khedma_tech/views/dashboard/widget/Customcustomsammry.dart';
-import 'package:khedma_tech/views/widget/custom_handman.dart';
+import '../dashboard/widget/Customcustomsammry.dart';
+import '../widget/custom_handman.dart';
 import '../../core/constent.dart';
 import '../dashboard/widget/allrecommend.dart';
 import '../widget/custom_address.dart';
@@ -84,7 +84,7 @@ class ServiceCarpenter extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => AllRecommend(),
+                                          builder: (context) => const AllRecommend(),
                                         ),
                                       );
                                     },

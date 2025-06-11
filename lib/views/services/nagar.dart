@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/handmen/Service-Carpenter.dart';
 
 import '../widget/customAppService.dart';
 import '../widget/custom_handman.dart';
@@ -34,7 +33,7 @@ class Carpentry extends StatelessWidget {
         .snapshots(),
     builder: (context, snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {
-    return Center(child: CircularProgressIndicator());
+    return const Center(child: CircularProgressIndicator());
     }
 
     if (snapshot.hasError) {
@@ -43,11 +42,11 @@ class Carpentry extends StatelessWidget {
 
 
     if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-    return Center(child: Text('No najar found'));
+    return const Center(child: Text('No najar found'));
     }
     if(snapshot.data!.size==1 && snapshot.data!.docs.first.id==FirebaseAuth.instance.currentUser!.uid)
     {
-      return Text("No najar found");
+      return const Text("No najar found");
     }
     return ListView.builder(
       shrinkWrap: true,
@@ -55,8 +54,8 @@ class Carpentry extends StatelessWidget {
       itemCount: snapshot.data!.docs.length,
       itemBuilder: (BuildContext context, int index) {
         return  Padding(
-          padding: EdgeInsets.only(bottom: 16),
-          child:snapshot.data!.docs[index].id!=FirebaseAuth.instance.currentUser!.uid? HandMan( snapshot.data!.docs[index].id):Text(""),
+          padding: const EdgeInsets.only(bottom: 16),
+          child:snapshot.data!.docs[index].id!=FirebaseAuth.instance.currentUser!.uid? HandMan( snapshot.data!.docs[index].id):const Text(""),
         );
       },
     );},

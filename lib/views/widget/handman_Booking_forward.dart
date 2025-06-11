@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/views/booking/widget/custombotombokking.dart';
 
 import '../../core/constent.dart';
 import '../booking/widget/CustomRowBokking.dart';
@@ -10,7 +9,7 @@ import '../booking/widget/customVisibleContainer.dart';
 
 
 class handman_Booking_forward extends StatefulWidget {
-  handman_Booking_forward({super.key});
+  const handman_Booking_forward({super.key});
 
   @override
   handman_Booking_forwardState createState() => handman_Booking_forwardState();
@@ -46,7 +45,7 @@ class handman_Booking_forwardState extends State<handman_Booking_forward> with A
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
 
               if (snapshot.hasError) {
@@ -54,7 +53,7 @@ class handman_Booking_forwardState extends State<handman_Booking_forward> with A
               }
 
               if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                return Center(child: Text('No reserves found'));
+                return const Center(child: Text('No reserves found'));
               }
               List<DocumentSnapshot> completed = snapshot.data!.docs;
 
@@ -106,19 +105,19 @@ class handman_Booking_forwardState extends State<handman_Booking_forward> with A
                                             .snapshots(),
                                         builder: (context, snapshot) {
                                           if (snapshot.hasError) {
-                                            return Center(
+                                            return const Center(
                                               child: Text('Something went wrong'),
                                             );
                                           }
 
                                           if (snapshot.connectionState == ConnectionState.waiting) {
-                                            return Center(
+                                            return const Center(
                                               child: CircularProgressIndicator(),
                                             );
                                           }
 
                                           if (!snapshot.hasData || !snapshot.data!.exists) {
-                                            return Center(
+                                            return const Center(
                                               child: Text('No data found for this user'),
                                             );
                                           }
@@ -131,7 +130,7 @@ class handman_Booking_forwardState extends State<handman_Booking_forward> with A
 
                                           return Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            children: [Text("العنوان"), Text(data["adresse"])],
+                                            children: [const Text("العنوان"), Text(data["adresse"])],
                                           );
                                         },
                                       ),

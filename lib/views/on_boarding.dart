@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khedma_tech/core/constent.dart';
-import 'package:khedma_tech/views/logins/login.dart';
-import 'package:khedma_tech/views/widget/custom_button.dart';
-import 'package:khedma_tech/views/widget/custom_button2.dart';
-import 'package:khedma_tech/views/widget/on_boarding_page.dart';
+import '../core/constent.dart';
+import 'logins/login.dart';
+import 'widget/custom_button.dart';
+import 'widget/custom_button2.dart';
+import 'widget/on_boarding_page.dart';
 
 // ignore: use_key_in_widget_constructors
 class OnboardingScreen extends StatefulWidget {
@@ -76,9 +76,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Column(
             children: [
               CustomButton(
+
                 pageController: _pageController,
                 title: 'التالى',
                 onPressed: () {
+                  
                   _pageController.nextPage(
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.ease,
@@ -120,7 +122,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 title: 'يلا نبدأ',
                 onPressed: () {
 
-                  Get.to(Login());
+                  Get.to(const Login());
                 },
               ),
               const SizedBox(

@@ -11,7 +11,7 @@ class customlistviewbottom extends StatefulWidget {
   })
   {
     print("INIT INIT");
-    print(this.ServiceNames);
+    print(ServiceNames);
   }
 
   final List ServiceNames;
@@ -35,7 +35,7 @@ class _customlistviewbottomState extends State<customlistviewbottom> {
         reverse: true,
         scrollDirection: Axis.horizontal,
         // physics: NeverScrollableScrollPhysics(),
-        itemCount: this.ServiceNames.length,
+        itemCount: ServiceNames.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.only(right: 10),
@@ -54,7 +54,7 @@ class _customlistviewbottomState extends State<customlistviewbottom> {
                     color: _selectedIndex == index ? kcolor1 : background),
                 child: Center(
                   child: Text(
-                    this.ServiceNames[index],
+                    ServiceNames[index],
                     style: txtstyle66,
                   ),
                 ),

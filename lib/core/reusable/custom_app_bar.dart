@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:khedma_tech/core/constent.dart';
+import '../constent.dart';
 
 class OurCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const OurCustomAppBar(

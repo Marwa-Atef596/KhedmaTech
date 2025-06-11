@@ -35,47 +35,49 @@ class Recommended extends StatelessWidget {
                   builder: (context, snapshot) {
                     if(snapshot.connectionState==ConnectionState.waiting)
                     {
-                      return CircularProgressIndicator();
+                      return const CircularProgressIndicator();
 
                     }
                     if(snapshot.hasError)
                     {
-                      return Text("Erorr");
+                      return const Text("Erorr");
 
                     }
                     if(!snapshot.hasData || snapshot.data!.size==0)
                     {
-                      return Text("NO INFO");
+                      return const Text("NO INFO");
                     }
                     if(snapshot.data!.size==1 && snapshot.data!.docs.first.id==FirebaseAuth.instance.currentUser!.uid)
                     {
-                      return Text("لا يوجد مرشحين");
+                      return const Text("لا يوجد مرشحين");
                     }
                     List users=[];
                     users=snapshot.data!.docs;
                     users.sort((a, b) {
-                      num ranks_a=0;
+                      num ranksA=0;
                       for(int i=0;i<a["ranks"].length;i++)
                       {
-                        ranks_a+=a["ranks"][i]["value"];
+                        ranksA+=a["ranks"][i]["value"];
 
                       }
-                      if(a["ranks"].length!=0)
-                        ranks_a=ranks_a/a["ranks"].length;
-                      num ranks_b=0;
+                      if(a["ranks"].length!=0) {
+                        ranksA=ranksA/a["ranks"].length;
+                      }
+                      num ranksB=0;
                       for(int i=0;i<b["ranks"].length;i++)
                       {
-                        ranks_b+=b["ranks"][i]["value"];
+                        ranksB+=b["ranks"][i]["value"];
 
                       }
-                      if(b["ranks"].length!=0)
-                        ranks_b=ranks_b/b["ranks"].length;
-                      print(ranks_a);
-                      print(ranks_b);
-                      print(ranks_b.compareTo(ranks_a));
+                      if(b["ranks"].length!=0) {
+                        ranksB=ranksB/b["ranks"].length;
+                      }
+                      print(ranksA);
+                      print(ranksB);
+                      print(ranksB.compareTo(ranksA));
                       print("--------------------");
 
-                      return ranks_b.compareTo(ranks_a);
+                      return ranksB.compareTo(ranksA);
 
 
                     });
@@ -86,8 +88,8 @@ class Recommended extends StatelessWidget {
                       itemCount: users.length,
                       itemBuilder: (BuildContext context, int index) {
                         return  Padding(
-                          padding: EdgeInsets.only(bottom: 16),
-                          child: users[index].id!=FirebaseAuth.instance.currentUser!.uid? HandMan(users[index].id):Text(""),
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: users[index].id!=FirebaseAuth.instance.currentUser!.uid? HandMan(users[index].id):const Text(""),
                         );
                       },
                     );
