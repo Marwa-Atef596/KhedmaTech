@@ -30,3 +30,12 @@ A modern Flutter app built to help users find and manage technical services effi
 - 🎯 State management using Bloc and Cubit
 
 - 📱 Responsive layout optimized for all devices
+
+
+## 📸 Screenshots
+
+<p float="left">
+  <img src="assets/screenshots/Screenshot_1749661387-left.png" width="250"/>
+  <img src="assets/screenshots/Screenshot_1749662828-left.png
+" width="250"/>
+</p>
